@@ -2,13 +2,15 @@
 #define TOKENIZER_H_
 
 #include <iostream>
+#include <vector>
 
 class Token;
 class Tokenizer
 {
+    Token *parse(FILE *pFile);
   public:
     Tokenizer() {};
-    static Token *getAllTokens(FILE *pFile);
+    std::vector<Token *> getAllTokens(FILE *pFile);
 };
 
 #endif

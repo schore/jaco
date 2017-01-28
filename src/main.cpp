@@ -5,6 +5,6 @@
 using namespace std;
 
 int main() {
-  cout << "Hello World" << endl;
-  Tokenizer::getAllTokens(NULL);
+  Tokenizer t;
+  t.getAllTokens(NULL);
 }
