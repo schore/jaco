@@ -3,6 +3,7 @@
 
 enum eTokenType {
   Token_Undefined,
+  Token_Operator,
   Token_Eof,
 };
 
