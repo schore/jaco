@@ -15,13 +15,10 @@ configure_file (
   "${PROJECT_BINARY_DIR}/include/global_config.h"
   )
 
-
-add_executable(main src/main.cpp)
-
-
 include_directories("${PROJECT_SOURCE_DIR}/src/include")
 add_subdirectory(src)
 
+add_executable(compiler ${SOURCE})
 #test framework
 #include(CTest)
 
