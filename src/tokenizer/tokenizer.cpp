@@ -3,5 +3,5 @@
 #include "debug_helper.h"
 
 static Token *Tokenizer::getAllTokens(FILE *pFile) {
-  ASSERT(pFILE == NULL);
+  ASSERT(pFile == NULL, NULL);
 }
