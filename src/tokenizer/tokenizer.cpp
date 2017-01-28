@@ -4,6 +4,8 @@
 
 #include "token.h"
 #include "tokens/TokenOperator.h"
+#include "tokens/TokenInt.h"
+#include "tokens/TokenDouble.h"
 #include "utility.h"
 
 
@@ -116,7 +118,7 @@ Token *Tokenizer::createOperator(std::ifstream *pFile) {
     }
   }
 
-  pFile->seekg(2 - weight, ios_base::cur);
+  pFile->seekg(weight-2, ios_base::cur);
 
   return new TokenOperator(opType);
 }
@@ -144,7 +146,11 @@ Token *Tokenizer::createNumber(std::ifstream *pFile){
       parsedDouble = parsedInt;
     }
     else if ( c == ' ' || c == ';' || c == '\n' ) {
-
+      if ( c == ';') {
+        pFile->seekg(-1, ios_base::cur);
+      }
+      if (isDouble) return new TokenDouble(parsedDouble);
+      else return new TokenInt(parsedInt);
     }
     else {
       ASSERT(true, NULL);

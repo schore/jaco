@@ -4,6 +4,8 @@
 enum eTokenType {
   Token_Undefined,
   Token_Operator,
+  Token_Double,
+  Token_Int,
   Token_Eof,
 };
 
