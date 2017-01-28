@@ -6,6 +6,7 @@
 #include "tokens/TokenOperator.h"
 #include "tokens/TokenInt.h"
 #include "tokens/TokenDouble.h"
+#include "tokens/TokenBrace.h"
 #include "utility.h"
 
 
@@ -162,6 +163,17 @@ Token *Tokenizer::createWord(std::ifstream *pFile){
 }
 
 Token *Tokenizer::createBrace(std::ifstream *pFile){
+  char c;
+  pFile->get(c);
+  switch(c) {
+    case '(': return new TokenBrace(TokBraceLeftRound);
+    case ')': return new TokenBrace(TokBraceRightRound);
+    case '{': return new TokenBrace(TokBraceLeftSwift);
+    case '}': return new TokenBrace(TokBraceRightSwift);
+    default:
+              break;
+  }
+  ASSERT(true, NULL);
 }
 
 Token * Tokenizer::parse(ifstream *pFile) {
