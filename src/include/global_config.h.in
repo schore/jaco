@@ -1,0 +1,7 @@
+//Configuration file
+
+
+#define COMPILER_VERSION_MAJOR @Tutorial_Version_Major@
+#define COMPILER_VERSION_MINOR @Tutorial_Version_Minor@
+
+#cmakedefine USE_MYMATH
