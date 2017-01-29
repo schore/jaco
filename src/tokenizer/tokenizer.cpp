@@ -7,6 +7,8 @@
 #include "tokens/TokenInt.h"
 #include "tokens/TokenDouble.h"
 #include "tokens/TokenBrace.h"
+#include "tokens/TokenKeyword.h"
+#include "tokens/TokenIdentifier.h"
 #include "utility.h"
 
 
@@ -21,6 +23,7 @@ struct StringToOperator {
 struct StringToKeyword {
   const char* str;
   int size;
+  TokenKeywordType type;
 };
 
 
@@ -68,13 +71,13 @@ static const vector<StringToOperator> MappingOperators = {
 };
 
 #define KEYWORD_TABLE\
-  X("if")\
-  X("while")\
-  X("for")\
-  X("else")
+  X("if"    , TokenKeywordIf    )\
+  X("while" , TokenKeywordElse  )\
+  X("for"   , TokenKeywordWhile )\
+  X("else"  , TokenKeywordElse  )
 
 static const vector<StringToKeyword> MappingKeywords = {
-#define X(_STR) {_STR, sizeof(_STR)-1},
+#define X(_STR, _TYPE) {_STR, sizeof(_STR)-1, _TYPE},
   KEYWORD_TABLE
 #undef X
 };
@@ -194,7 +197,7 @@ Token *Tokenizer::createKeyword(ifstream *pFile) {
       pFile->get(c);
       i++;
       if (c == ' ' || this->isBrace(c)) {
-        ///\todo create Key 
+        return new TokenKeyword(map.type);
       }
     }
     pFile->seekg(-i, ios_base::cur);
@@ -212,7 +215,11 @@ Token *Tokenizer::createIdentifier(ifstream *pFile) {
   pFile->get(c);
   while(this->isAllowedChar(c)) {
     idStr.push_back(c);
+    pFile->get(c);
   }
+
+  return new TokenIdentifier(idStr);
+
 }
 
 Token *Tokenizer::createWord(std::ifstream *pFile){

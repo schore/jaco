@@ -6,6 +6,8 @@ enum eTokenType {
   Token_Operator,
   Token_Double,
   Token_Int,
+  Token_Keyword,
+  Token_Identifier,
   Token_Eof,
 };
 
