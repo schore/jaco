@@ -8,6 +8,7 @@ set (Compiler_Version_Minor 0)
 #Global Options
 
 option (DEBUG "Debug Mode on" ON)
+option (BUILD_TEST "Build Testing" ON)
 
 #generate header file
 configure_file (
@@ -26,11 +27,18 @@ add_executable(compiler ${SOURCE})
 # does the application run
 #add_test (TutorialRuns tutorial 25)
 
-macro (do_test arg result)
-  add_test (TutorialComp${arg} tutorial ${arg})
-  set_tests_properties (TutorialComp${arg}
-    PROPERTIES PASS_REGULAR_EXPRESSION ${result})
-endmacro (do_test)
-
-#do_test(25 "25 is 5")
-#do_test(-25 "-25 is 0")
+if (BUILD_TEST)
+    enable_testing()
+    add_subdirectory(test)
+    add_executable(tokenizer_test
+      ${TEST_SRC_TOKEN})
+    target_link_libraries(tokenizer_test
+        pthread)
+    target_link_libraries(tokenizer_test
+        gmock
+        gmock_main)
+    target_link_libraries(tokenizer_test
+        gtest
+        gtest_main)
+    add_test(tokenizer-test tokenizer_test)
+endif()
