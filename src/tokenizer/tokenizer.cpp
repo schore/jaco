@@ -174,7 +174,7 @@ Token *Tokenizer::createNumber(std::ifstream *pFile){
   }
 }
 
-Token *Tokenizer::createWord(std::ifstream *pFile){
+Token *Tokenizer::createKeyword(ifstream *pFile) {
   char c;
 
   for(StringToKeyword map : MappingKeywords) {
@@ -194,13 +194,36 @@ Token *Tokenizer::createWord(std::ifstream *pFile){
       pFile->get(c);
       i++;
       if (c == ' ' || this->isBrace(c)) {
-        //create Key 
+        ///\todo create Key 
       }
     }
     pFile->seekg(-i, ios_base::cur);
   }
 
+  return NULL;
+
+}
+
+Token *Tokenizer::createIdentifier(ifstream *pFile) {
+  char c;
+
+  vector<char> idStr;
+
+  pFile->get(c);
+  while(this->isAllowedChar(c)) {
+    idStr.push_back(c);
+  }
+}
+
+Token *Tokenizer::createWord(std::ifstream *pFile){
   //defaut Case generate Keyword
+  Token *t = this->createKeyword(pFile);
+  if (t != NULL) {
+    return t;
+  }
+  else {
+    return this->createIdentifier(pFile);
+  }
 }
 
 Token *Tokenizer::createBrace(std::ifstream *pFile){

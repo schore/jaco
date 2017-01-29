@@ -15,6 +15,8 @@ class Tokenizer
     Token *createOperator(std::ifstream *pFile);
     Token *createNumber(std::ifstream *pFile);
     Token *createWord(std::ifstream *pFile);
+    Token *createKeyword(std::ifstream *pFile);
+    Token *createIdentifier(std::ifstream *pFile);
     Token *createBrace(std::ifstream *pFile);
 
     Token *parse(std::ifstream *pFile);
