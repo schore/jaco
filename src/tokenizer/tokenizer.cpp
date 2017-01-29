@@ -18,6 +18,11 @@ struct StringToOperator {
   TokenOperatorType tok;
 };
 
+struct StringToKeyword {
+  const char* str;
+  int size;
+};
+
 
 template <class T> bool inList(vector<T> vect, T item) {
   T var;
@@ -62,7 +67,17 @@ static const vector<StringToOperator> MappingOperators = {
 #undef X
 };
 
+#define KEYWORD_TABLE\
+  X("if")\
+  X("while")\
+  X("for")\
+  X("else")
 
+static const vector<StringToKeyword> MappingKeywords = {
+#define X(_STR) {_STR, sizeof(_STR)-1},
+  KEYWORD_TABLE
+#undef X
+};
 
 bool Tokenizer::isAllowedChar(char c) {
   if (isalpha(c)) return true;
@@ -160,6 +175,32 @@ Token *Tokenizer::createNumber(std::ifstream *pFile){
 }
 
 Token *Tokenizer::createWord(std::ifstream *pFile){
+  char c;
+
+  for(StringToKeyword map : MappingKeywords) {
+    int i;
+    bool match = true;
+
+    for (i=0; i < map.size; i++) {
+      char c;
+      pFile->get(c);
+      if ( map.str[i] != c ) {
+        match = false;
+        break;
+      }
+    }
+
+    if (match) {
+      pFile->get(c);
+      i++;
+      if (c == ' ' || this->isBrace(c)) {
+        //create Key 
+      }
+    }
+    pFile->seekg(-i, ios_base::cur);
+  }
+
+  //defaut Case generate Keyword
 }
 
 Token *Tokenizer::createBrace(std::ifstream *pFile){
@@ -171,7 +212,7 @@ Token *Tokenizer::createBrace(std::ifstream *pFile){
     case '{': return new TokenBrace(TokBraceLeftSwift);
     case '}': return new TokenBrace(TokBraceRightSwift);
     default:
-              break;
+      break;
   }
   ASSERT(true, NULL);
 }
