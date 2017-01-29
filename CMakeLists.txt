@@ -19,7 +19,10 @@ configure_file (
 include_directories("${PROJECT_SOURCE_DIR}/src/include")
 add_subdirectory(src)
 
-add_executable(compiler ${SOURCE})
+add_executable(compiler ./src/main.cpp)
+target_link_libraries(compiler compilerLib)
+
+add_library(compilerLib ${SOURCE})
 #test framework
 #include(CTest)
 
@@ -27,18 +30,16 @@ add_executable(compiler ${SOURCE})
 # does the application run
 #add_test (TutorialRuns tutorial 25)
 
+
 if (BUILD_TEST)
     enable_testing()
+    find_package(GTest REQUIRED)
+    include_directories(${GTEST_INCLUDE_DIRS})
+
     add_subdirectory(test)
-    add_executable(tokenizer_test
-      ${TEST_SRC_TOKEN})
-    target_link_libraries(tokenizer_test
-        pthread)
-    target_link_libraries(tokenizer_test
-        gmock
-        gmock_main)
-    target_link_libraries(tokenizer_test
-        gtest
-        gtest_main)
+    add_executable(tokenizer_test ${TEST_SRC_TOKEN})
+    target_link_libraries(tokenizer_test pthread)
+    target_link_libraries(tokenizer_test ${GTEST_BOTH_LIBRARIES})
+    target_link_libraries(tokenizer_test compilerLib)
     add_test(tokenizer-test tokenizer_test)
 endif()
