@@ -10,6 +10,7 @@ class Tokenizer
     bool isAllowedChar(char c);
     bool isOperator(char c);
     bool isBrace(char c);
+    bool isSpecialChar(char c);
     void removeSpace(std::ifstream *pFile);
 
     Token *createOperator(std::ifstream *pFile);
@@ -18,6 +19,7 @@ class Tokenizer
     Token *createKeyword(std::ifstream *pFile);
     Token *createIdentifier(std::ifstream *pFile);
     Token *createBrace(std::ifstream *pFile);
+    Token *createSpecialChar(std::ifstream *pFile);
 
     Token *parse(std::ifstream *pFile);
   public:

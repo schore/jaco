@@ -9,6 +9,7 @@
 #include "tokens/TokenBrace.h"
 #include "tokens/TokenKeyword.h"
 #include "tokens/TokenIdentifier.h"
+#include "tokens/TokenSemilicon.h"
 #include "utility.h"
 
 
@@ -28,18 +29,17 @@ struct StringToKeyword {
 
 
 template <class T> bool inList(vector<T> vect, T item) {
-  T var;
   for (T n : vect) {
-    if (var == n) return true;
+    if (item == n) return true;
   }
   return false;
 }
 
 static const vector<char> emptySpace = {
-  ' ','\n'};
+  ' ', '\n'};
 
 static const vector<char> oper = {
-  '+', '-', '*', '/', '|', '&', '%', '!'};
+  '+', '-', '*', '/', '|', '&', '%', '!', '=', '<', '>'};
 
 static const vector<char> brace = {
   '(', ')', '{', '}'};
@@ -62,7 +62,7 @@ static const vector<char> brace = {
   X("&" ,    TokOperatorAnd)\
   X("<<",    TokOperatorShiftLeft)\
   X(">>",    TokOperatorShiftRight)\
-  X("%" ,    TokOperatorModulo)\
+  X("%" ,    TokOperatorModulo)
 
 static const vector<StringToOperator> MappingOperators = {
 #define X(_CHAR, _TOKEN) { _CHAR, sizeof(_CHAR)-1, _TOKEN},
@@ -82,8 +82,13 @@ static const vector<StringToKeyword> MappingKeywords = {
 #undef X
 };
 
+static const vector<char> specialChars = {
+  ';'
+};
+
 bool Tokenizer::isAllowedChar(char c) {
   if (isalpha(c)) return true;
+  if (isdigit(c)) return true;
   if (c == '_') return true;
   return false;
 }
@@ -96,22 +101,14 @@ bool Tokenizer::isBrace(char c) {
   return inList<char>(brace, c);
 }
 
+bool Tokenizer::isSpecialChar(char c) {
+  return inList<char>(specialChars, c);
+}
+
 void Tokenizer::removeSpace(ifstream *pFile) {
   char c;
-  bool inList = false;
-
-  ASSERT(pFile == NULL,  );
-
-  do {
-    inList = false;
+  while (inList<char>(emptySpace, pFile->peek()))
     pFile->get(c);
-    for (char n : emptySpace) {
-      if (n == c) {
-        inList = true;
-        break;
-      }
-    }
-  } while (inList);
 }
 
 
@@ -124,7 +121,7 @@ Token *Tokenizer::createOperator(std::ifstream *pFile) {
 
 
   pFile->get(c1);
-  pFile->get(c2);
+  c2 = pFile->peek();
   for (StringToOperator map: MappingOperators ) {
     if (map.size == 1 && map.str[0] == c1) {
       weight = 1;
@@ -134,10 +131,9 @@ Token *Tokenizer::createOperator(std::ifstream *pFile) {
         map.str[0] == c1 && map.str[1] == c2) {
       weight = 2;
       opType = map.tok;
+      pFile->get(c2);
     }
   }
-
-  pFile->seekg(weight-2, ios_base::cur);
 
   return new TokenOperator(opType);
 }
@@ -147,7 +143,7 @@ Token *Tokenizer::createNumber(std::ifstream *pFile){
   long long int parsedInt = 0;
   int count = 0;
   char c;
-  bool isDouble;
+  bool isDouble=false;
 
   while(true) {
     pFile->get(c);
@@ -200,7 +196,7 @@ Token *Tokenizer::createKeyword(ifstream *pFile) {
         return new TokenKeyword(map.type);
       }
     }
-    pFile->seekg(-i, ios_base::cur);
+    pFile->seekg(-i-1, ios_base::cur);
   }
 
   return NULL;
@@ -217,6 +213,7 @@ Token *Tokenizer::createIdentifier(ifstream *pFile) {
     idStr.push_back(c);
     pFile->get(c);
   }
+  pFile->seekg(-1, ios::cur);
 
   return new TokenIdentifier(idStr);
 
@@ -231,6 +228,12 @@ Token *Tokenizer::createWord(std::ifstream *pFile){
   else {
     return this->createIdentifier(pFile);
   }
+}
+
+Token *Tokenizer::createSpecialChar(std::ifstream *pFile) {
+  char c;
+  pFile->get(c);
+  return new TokenSemilicon();
 }
 
 Token *Tokenizer::createBrace(std::ifstream *pFile){
@@ -250,37 +253,35 @@ Token *Tokenizer::createBrace(std::ifstream *pFile){
 Token * Tokenizer::parse(ifstream *pFile) {
   this->removeSpace(pFile);
   char c;
-  pFile->get(c);
-  pFile->seekg(-1, ios_base::cur);
+  //pFile->get(c);
+  //pFile->seekg(-1, ios_base::cur);
+  c = pFile->peek();
 
-  if(isdigit(c)) {
-    return this->createNumber(pFile);
-  }
-  else if (this->isAllowedChar(c)) {
-    return this->createWord(pFile);
-  }
-  else if (this->isOperator(c)) {
-    return this->createOperator(pFile);
-  }
-  else if (this->isBrace(c)) {
-    return this->createBrace(pFile);
-  }
+  if(isdigit(c))                   return this->createNumber(pFile);
+  else if (this->isAllowedChar(c)) return this->createWord(pFile);
+  else if (this->isOperator(c))    return this->createOperator(pFile);
+  else if (this->isBrace(c))       return this->createBrace(pFile);
+  else if (this->isSpecialChar(c)) return this->createSpecialChar(pFile);
 
-  DEBUG_PRINT("Default Reached Char not allowed??");
   return NULL;
 }
 
 vector<Token *> Tokenizer::getAllTokens(ifstream *pFile) {
   vector<Token *>  vectorToken;
   Token * t;
+  int filePos = -1;
 
   ASSERT(pFile == NULL, vectorToken);
+  ASSERT(!pFile->is_open() , vectorToken);
 
-  do {
+  while(!pFile->eof()) {
+//  while(filePos != pFile->tellg()) {
+    filePos = pFile->tellg();
     t = this->parse(pFile);
-    vectorToken.push_back(t);
-  } while(t->getType() != Token_Undefined );
-
+    if (t != NULL) {
+      vectorToken.push_back(t);
+    }
+  }
   return vectorToken;
 
 }

@@ -14,7 +14,7 @@ class TokenBrace : public Token {
   TokenBraceType braceType;
   public:
   TokenBrace(TokenBraceType braceType) :
-    Token(Token_Double), braceType(braceType) {};
+    Token(Token_Brace), braceType(braceType) {};
 };
 
 #endif

@@ -16,6 +16,10 @@ configure_file (
   "${PROJECT_BINARY_DIR}/include/global_config.h"
   )
 
+if (DEBUG)
+  set(CMAKE_BUILD_TYPE Debug)
+endif()
+
 include_directories("${PROJECT_SOURCE_DIR}/src/include")
 add_subdirectory(src)
 
