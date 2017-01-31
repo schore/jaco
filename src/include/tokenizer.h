@@ -11,6 +11,8 @@ class Tokenizer
     bool isOperator(char c);
     bool isBrace(char c);
     bool isSpecialChar(char c);
+    bool isEmptySpace(char c);
+    bool isEndOfSequence(char c);
     void removeSpace(std::ifstream *pFile);
 
     Token *createOperator(std::ifstream *pFile);

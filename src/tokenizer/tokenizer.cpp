@@ -72,8 +72,8 @@ static const vector<StringToOperator> MappingOperators = {
 
 #define KEYWORD_TABLE\
   X("if"    , TokenKeywordIf    )\
-  X("while" , TokenKeywordElse  )\
-  X("for"   , TokenKeywordWhile )\
+  X("while" , TokenKeywordWhile )\
+  X("for"   , TokenKeywordFor   )\
   X("else"  , TokenKeywordElse  )
 
 static const vector<StringToKeyword> MappingKeywords = {
@@ -103,6 +103,18 @@ bool Tokenizer::isBrace(char c) {
 
 bool Tokenizer::isSpecialChar(char c) {
   return inList<char>(specialChars, c);
+}
+
+bool Tokenizer::isEmptySpace(char c) {
+  return inList<char>(emptySpace, c);
+}
+
+bool Tokenizer::isEndOfSequence(char c) {
+  if (this->isOperator(c)) return true;
+  if (this->isBrace(c)) return true;
+  if (this->isSpecialChar(c)) return true;
+  if (this->isEmptySpace(c)) return true;
+  return false;
 }
 
 void Tokenizer::removeSpace(ifstream *pFile) {
@@ -161,11 +173,8 @@ Token *Tokenizer::createNumber(std::ifstream *pFile){
       isDouble = true;
       parsedDouble = parsedInt;
     }
-    else if ( c == ' ' || c == ';' || c == '\n'
-             || this->isOperator(c)) {
-      if ( c == ';' || this->isOperator(c)) {
-        pFile->seekg(-1, ios_base::cur);
-      }
+    else if (this->isEndOfSequence(c)) {
+      pFile->seekg(-1, ios_base::cur);
       if (isDouble) return new TokenDouble(parsedDouble);
       else return new TokenInt(parsedInt);
     }
@@ -183,8 +192,8 @@ Token *Tokenizer::createKeyword(ifstream *pFile) {
     bool match = true;
 
     for (i=0; i < map.size; i++) {
-      char c;
       pFile->get(c);
+      c = tolower(c);
       if ( map.str[i] != c ) {
         match = false;
         break;
@@ -194,15 +203,14 @@ Token *Tokenizer::createKeyword(ifstream *pFile) {
     if (match) {
       pFile->get(c);
       i++;
-      if (c == ' ' || this->isBrace(c)) {
+      if (this->isEndOfSequence(c)) {
         return new TokenKeyword(map.type);
       }
     }
-    pFile->seekg(-i-1, ios_base::cur);
+    pFile->seekg(-i -1, ios_base::cur);
   }
 
   return NULL;
-
 }
 
 Token *Tokenizer::createIdentifier(ifstream *pFile) {

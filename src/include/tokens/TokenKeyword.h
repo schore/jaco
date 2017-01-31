@@ -13,10 +13,12 @@ enum TokenKeywordType {
 
 class TokenKeyword : public Token
 {
-  const TokenKeywordType type;
+  const TokenKeywordType tokType;
 public:
+  TokenKeywordType getKeywordType() { return this->tokType; }
+
   TokenKeyword(TokenKeywordType type) :
-    Token(Token_Keyword), type(type) {};
+    Token(Token_Keyword), tokType(type) {};
 };
 
 #endif /* TOKENKEYWORD_H */
