@@ -29,6 +29,8 @@ class TokenOperator : public Token {
   const TokenOperatorType opType;
 
   public:
+  TokenOperatorType getOpType() {return this->opType;}
+
   TokenOperator(TokenOperatorType opType) :
     Token(Token_Operator), opType(opType) {};
 };

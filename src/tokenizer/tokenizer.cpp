@@ -132,6 +132,7 @@ Token *Tokenizer::createOperator(std::ifstream *pFile) {
       weight = 2;
       opType = map.tok;
       pFile->get(c2);
+      break;
     }
   }
 

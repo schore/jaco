@@ -7,7 +7,7 @@ set (Compiler_Version_Minor 0)
 
 #Global Options
 
-option (DEBUG "Debug Mode on" ON)
+option (COMP_DEBUG "Debug Mode on" ON)
 option (BUILD_TEST "Build Testing" ON)
 
 #generate header file
@@ -16,7 +16,7 @@ configure_file (
   "${PROJECT_BINARY_DIR}/include/global_config.h"
   )
 
-if (DEBUG)
+if (COMP_DEBUG)
   set(CMAKE_BUILD_TYPE Debug)
 endif()
 
