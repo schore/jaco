@@ -70,7 +70,7 @@ TEST(Tokenizer, Parse) {
   allToken = tok.getAllTokens(&myFile);
 
   for (Token *n : allToken) {
-    n->printToken();
+    //n->printToken();
     EXPECT_EQ( n->getType(), expectedType[i]);
     i++;
   }

@@ -1,0 +1,127 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+ASSERT	src/include/debug_helper.h	10;"	d
+ASSERT	src/include/global_config.h	8;"	d
+DEBUG_HELPER_H_	src/include/debug_helper.h	2;"	d
+DEBUG_HELPER_H__	src/include/global_config.h	2;"	d
+DEBUG_PRINT	src/include/debug_helper.h	6;"	d
+DEBUG_PRINT	src/include/global_config.h	4;"	d
+E_TOKEN_TYPE	src/include/token.h	/^  E_TOKEN_TYPE$/;"	e	enum:eTokenType
+E_TOKEN_TYPE	src/include/token.h	4;"	d
+KEYWORD_TABLE	src/tokenizer/tokenizer.cpp	73;"	d	file:
+MAPPING_TABLE	src/tokenizer/tokenizer.cpp	47;"	d	file:
+MappingKeywords	src/tokenizer/tokenizer.cpp	/^static const vector<StringToKeyword> MappingKeywords = {$/;"	v	file:
+MappingOperators	src/tokenizer/tokenizer.cpp	/^static const vector<StringToOperator> MappingOperators = {$/;"	v	file:
+NELEMENTS	src/include/utility.h	4;"	d
+StringToKeyword	src/tokenizer/tokenizer.cpp	/^struct StringToKeyword {$/;"	s	file:
+StringToOperator	src/tokenizer/tokenizer.cpp	/^struct StringToOperator {$/;"	s	file:
+TEST	test/tokenizer/tokenizerTest.cpp	/^TEST(Tokenizer, FileOpen) {$/;"	f
+TEST	test/tokenizer/tokenizerTest.cpp	/^TEST(Tokenizer, NoFile) {$/;"	f
+TEST	test/tokenizer/tokenizerTest.cpp	/^TEST(Tokenizer, Parse) {$/;"	f
+TOKENIDENTIFIER_H	src/include/tokens/TokenIdentifier.h	2;"	d
+TOKENIZER_H_	src/include/tokenizer.h	2;"	d
+TOKENKEYWORD_H	src/include/tokens/TokenKeyword.h	2;"	d
+TOKENSEMILICON_H	src/include/tokens/TokenSemilicon.h	2;"	d
+TOKEN_BRACE_H_	src/include/tokens/TokenBrace.h	2;"	d
+TOKEN_DOUBLE_H_	src/include/tokens/TokenDouble.h	2;"	d
+TOKEN_H_	src/include/token.h	2;"	d
+TOKEN_INT_H_	src/include/tokens/TokenInt.h	2;"	d
+TOKEN_OPERATOR_H_	src/include/tokens/TokenOperator.h	2;"	d
+TokBraceLeftRound	src/include/tokens/TokenBrace.h	/^  TokBraceLeftRound,$/;"	e	enum:TokenBraceType
+TokBraceLeftSwift	src/include/tokens/TokenBrace.h	/^  TokBraceLeftSwift,$/;"	e	enum:TokenBraceType
+TokBraceRightRound	src/include/tokens/TokenBrace.h	/^  TokBraceRightRound,$/;"	e	enum:TokenBraceType
+TokBraceRightSwift	src/include/tokens/TokenBrace.h	/^  TokBraceRightSwift,$/;"	e	enum:TokenBraceType
+TokOperatioSmallerEq	src/include/tokens/TokenOperator.h	/^  TokOperatioSmallerEq,$/;"	e	enum:TokenOperatorType
+TokOperatorAnd	src/include/tokens/TokenOperator.h	/^  TokOperatorAnd,$/;"	e	enum:TokenOperatorType
+TokOperatorAssign	src/include/tokens/TokenOperator.h	/^  TokOperatorAssign,$/;"	e	enum:TokenOperatorType
+TokOperatorDivide	src/include/tokens/TokenOperator.h	/^  TokOperatorDivide,$/;"	e	enum:TokenOperatorType
+TokOperatorEq	src/include/tokens/TokenOperator.h	/^  TokOperatorEq,$/;"	e	enum:TokenOperatorType
+TokOperatorGreater	src/include/tokens/TokenOperator.h	/^  TokOperatorGreater,$/;"	e	enum:TokenOperatorType
+TokOperatorGreaterEq	src/include/tokens/TokenOperator.h	/^  TokOperatorGreaterEq,$/;"	e	enum:TokenOperatorType
+TokOperatorLogicAnd	src/include/tokens/TokenOperator.h	/^  TokOperatorLogicAnd,$/;"	e	enum:TokenOperatorType
+TokOperatorLogicOr	src/include/tokens/TokenOperator.h	/^  TokOperatorLogicOr,$/;"	e	enum:TokenOperatorType
+TokOperatorMinus	src/include/tokens/TokenOperator.h	/^  TokOperatorMinus,$/;"	e	enum:TokenOperatorType
+TokOperatorModulo	src/include/tokens/TokenOperator.h	/^  TokOperatorModulo,$/;"	e	enum:TokenOperatorType
+TokOperatorMultiply	src/include/tokens/TokenOperator.h	/^  TokOperatorMultiply,$/;"	e	enum:TokenOperatorType
+TokOperatorNEq	src/include/tokens/TokenOperator.h	/^  TokOperatorNEq,$/;"	e	enum:TokenOperatorType
+TokOperatorOr	src/include/tokens/TokenOperator.h	/^  TokOperatorOr,$/;"	e	enum:TokenOperatorType
+TokOperatorPlus	src/include/tokens/TokenOperator.h	/^  TokOperatorPlus,$/;"	e	enum:TokenOperatorType
+TokOperatorShiftLeft	src/include/tokens/TokenOperator.h	/^  TokOperatorShiftLeft,$/;"	e	enum:TokenOperatorType
+TokOperatorShiftRight	src/include/tokens/TokenOperator.h	/^  TokOperatorShiftRight,$/;"	e	enum:TokenOperatorType
+TokOperatorSmaller	src/include/tokens/TokenOperator.h	/^  TokOperatorSmaller,$/;"	e	enum:TokenOperatorType
+TokOperatorUndef	src/include/tokens/TokenOperator.h	/^  TokOperatorUndef,$/;"	e	enum:TokenOperatorType
+Token	src/include/token.h	/^    Token(eTokenType type) : type(type) {};$/;"	f	class:Token
+Token	src/include/token.h	/^class Token {$/;"	c
+TokenBrace	src/include/tokens/TokenBrace.h	/^  TokenBrace(TokenBraceType braceType) :$/;"	f	class:TokenBrace
+TokenBrace	src/include/tokens/TokenBrace.h	/^class TokenBrace : public Token {$/;"	c
+TokenBraceType	src/include/tokens/TokenBrace.h	/^enum TokenBraceType {$/;"	g
+TokenDouble	src/include/tokens/TokenDouble.h	/^  TokenDouble(double value) :$/;"	f	class:TokenDouble
+TokenDouble	src/include/tokens/TokenDouble.h	/^class TokenDouble : public Token {$/;"	c
+TokenIdentifier	src/include/tokens/TokenIdentifier.h	/^class TokenIdentifier : public Token$/;"	c
+TokenIdentifier	src/tokenizer/token/TokenIdentifier.cpp	/^TokenIdentifier::TokenIdentifier(vector<char> vect)$/;"	f	class:TokenIdentifier
+TokenInt	src/include/tokens/TokenInt.h	/^  TokenInt(long int value) :$/;"	f	class:TokenInt
+TokenInt	src/include/tokens/TokenInt.h	/^class TokenInt : public Token {$/;"	c
+TokenKeyword	src/include/tokens/TokenKeyword.h	/^  TokenKeyword(TokenKeywordType type) :$/;"	f	class:TokenKeyword
+TokenKeyword	src/include/tokens/TokenKeyword.h	/^class TokenKeyword : public Token$/;"	c
+TokenKeywordElse	src/include/tokens/TokenKeyword.h	/^  TokenKeywordElse,$/;"	e	enum:TokenKeywordType
+TokenKeywordFor	src/include/tokens/TokenKeyword.h	/^  TokenKeywordFor,$/;"	e	enum:TokenKeywordType
+TokenKeywordIf	src/include/tokens/TokenKeyword.h	/^  TokenKeywordIf,$/;"	e	enum:TokenKeywordType
+TokenKeywordType	src/include/tokens/TokenKeyword.h	/^enum TokenKeywordType {$/;"	g
+TokenKeywordWhile	src/include/tokens/TokenKeyword.h	/^  TokenKeywordWhile,$/;"	e	enum:TokenKeywordType
+TokenOperator	src/include/tokens/TokenOperator.h	/^  TokenOperator(TokenOperatorType opType) :$/;"	f	class:TokenOperator
+TokenOperator	src/include/tokens/TokenOperator.h	/^class TokenOperator : public Token {$/;"	c
+TokenOperatorType	src/include/tokens/TokenOperator.h	/^enum TokenOperatorType {$/;"	g
+TokenSemilicon	src/include/tokens/TokenSemilicon.h	/^  TokenSemilicon() : Token(Token_Semilicon) {};$/;"	f	class:TokenSemilicon
+TokenSemilicon	src/include/tokens/TokenSemilicon.h	/^class TokenSemilicon : public Token$/;"	c
+Tokenizer	src/include/tokenizer.h	/^    Tokenizer() {};$/;"	f	class:Tokenizer
+Tokenizer	src/include/tokenizer.h	/^class Tokenizer$/;"	c
+UTILITY_H_	src/include/utility.h	2;"	d
+X	src/include/token.h	16;"	d
+X	src/include/token.h	18;"	d
+X	src/tokenizer/token.cpp	10;"	d	file:
+X	src/tokenizer/token.cpp	12;"	d	file:
+X	src/tokenizer/tokenizer.cpp	68;"	d	file:
+X	src/tokenizer/tokenizer.cpp	70;"	d	file:
+X	src/tokenizer/tokenizer.cpp	80;"	d	file:
+X	src/tokenizer/tokenizer.cpp	82;"	d	file:
+brace	src/tokenizer/tokenizer.cpp	/^static const vector<char> brace = {$/;"	v	file:
+braceType	src/include/tokens/TokenBrace.h	/^  TokenBraceType braceType;$/;"	m	class:TokenBrace
+createBrace	src/tokenizer/tokenizer.cpp	/^Token *Tokenizer::createBrace(std::ifstream *pFile){$/;"	f	class:Tokenizer
+createIdentifier	src/tokenizer/tokenizer.cpp	/^Token *Tokenizer::createIdentifier(ifstream *pFile) {$/;"	f	class:Tokenizer
+createKeyword	src/tokenizer/tokenizer.cpp	/^Token *Tokenizer::createKeyword(ifstream *pFile) {$/;"	f	class:Tokenizer
+createNumber	src/tokenizer/tokenizer.cpp	/^Token *Tokenizer::createNumber(std::ifstream *pFile){$/;"	f	class:Tokenizer
+createOperator	src/tokenizer/tokenizer.cpp	/^Token *Tokenizer::createOperator(std::ifstream *pFile) {$/;"	f	class:Tokenizer
+createSpecialChar	src/tokenizer/tokenizer.cpp	/^Token *Tokenizer::createSpecialChar(std::ifstream *pFile) {$/;"	f	class:Tokenizer
+createWord	src/tokenizer/tokenizer.cpp	/^Token *Tokenizer::createWord(std::ifstream *pFile){$/;"	f	class:Tokenizer
+eTokenType	src/include/token.h	/^enum eTokenType {$/;"	g
+emptySpace	src/tokenizer/tokenizer.cpp	/^static const vector<char> emptySpace = {$/;"	v	file:
+getAllTokens	src/tokenizer/tokenizer.cpp	/^vector<Token *> Tokenizer::getAllTokens(ifstream *pFile) {$/;"	f	class:Tokenizer
+getType	src/include/token.h	/^    eTokenType getType() {return this->type;};$/;"	f	class:Token
+id	src/include/tokens/TokenIdentifier.h	/^  char *id;$/;"	m	class:TokenIdentifier
+inList	src/tokenizer/tokenizer.cpp	/^template <class T> bool inList(vector<T> vect, T item) {$/;"	f
+isAllowedChar	src/tokenizer/tokenizer.cpp	/^bool Tokenizer::isAllowedChar(char c) {$/;"	f	class:Tokenizer
+isBrace	src/tokenizer/tokenizer.cpp	/^bool Tokenizer::isBrace(char c) {$/;"	f	class:Tokenizer
+isOperator	src/tokenizer/tokenizer.cpp	/^bool Tokenizer::isOperator(char c) {$/;"	f	class:Tokenizer
+isSpecialChar	src/tokenizer/tokenizer.cpp	/^bool Tokenizer::isSpecialChar(char c) {$/;"	f	class:Tokenizer
+main	src/main.cpp	/^int main() {$/;"	f
+opType	src/include/tokens/TokenOperator.h	/^  const TokenOperatorType opType;$/;"	m	class:TokenOperator
+oper	src/tokenizer/tokenizer.cpp	/^static const vector<char> oper = {$/;"	v	file:
+parse	src/tokenizer/tokenizer.cpp	/^Token * Tokenizer::parse(ifstream *pFile) {$/;"	f	class:Tokenizer
+printToken	src/tokenizer/token.cpp	/^void Token::printToken() {$/;"	f	class:Token
+removeSpace	src/tokenizer/tokenizer.cpp	/^void Tokenizer::removeSpace(ifstream *pFile) {$/;"	f	class:Tokenizer
+size	src/tokenizer/tokenizer.cpp	/^  int size;$/;"	m	struct:StringToKeyword	file:
+size	src/tokenizer/tokenizer.cpp	/^  int size;$/;"	m	struct:StringToOperator	file:
+specialChars	src/tokenizer/tokenizer.cpp	/^static const vector<char> specialChars = {$/;"	v	file:
+str	src/tokenizer/tokenizer.cpp	/^  const char* str;$/;"	m	struct:StringToKeyword	file:
+str	src/tokenizer/tokenizer.cpp	/^  const char* str;$/;"	m	struct:StringToOperator	file:
+tok	src/tokenizer/tokenizer.cpp	/^  TokenOperatorType tok;$/;"	m	struct:StringToOperator	file:
+type	src/include/token.h	/^    const eTokenType type;$/;"	m	class:Token
+type	src/include/tokens/TokenKeyword.h	/^  const TokenKeywordType type;$/;"	m	class:TokenKeyword
+type	src/tokenizer/tokenizer.cpp	/^  TokenKeywordType type;$/;"	m	struct:StringToKeyword	file:
+value	src/include/tokens/TokenDouble.h	/^  double value;$/;"	m	class:TokenDouble
+value	src/include/tokens/TokenInt.h	/^  long int value;$/;"	m	class:TokenInt
+~TokenIdentifier	src/tokenizer/token/TokenIdentifier.cpp	/^TokenIdentifier::~TokenIdentifier() {$/;"	f	class:TokenIdentifier
