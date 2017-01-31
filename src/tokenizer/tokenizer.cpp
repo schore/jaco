@@ -139,9 +139,9 @@ Token *Tokenizer::createOperator(std::ifstream *pFile) {
 }
 
 Token *Tokenizer::createNumber(std::ifstream *pFile){
-  double parsedDouble;
+  double parsedDouble=0;
   long long int parsedInt = 0;
-  int count = 0;
+  double count = 10.0;
   char c;
   bool isDouble=false;
 
@@ -152,16 +152,17 @@ Token *Tokenizer::createNumber(std::ifstream *pFile){
         parsedInt = parsedInt*10 + c - '0';
       }
       else {
-        count++;
-        parsedDouble += (double)(c -'0')/(count*10.0);
+        parsedDouble += (((double)(c -'0'))/(count));
+        count *= 10;
       }
     }
     else if ( c == '.' && !isDouble) {
       isDouble = true;
       parsedDouble = parsedInt;
     }
-    else if ( c == ' ' || c == ';' || c == '\n' ) {
-      if ( c == ';') {
+    else if ( c == ' ' || c == ';' || c == '\n'
+             || this->isOperator(c)) {
+      if ( c == ';' || this->isOperator(c)) {
         pFile->seekg(-1, ios_base::cur);
       }
       if (isDouble) return new TokenDouble(parsedDouble);

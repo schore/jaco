@@ -36,3 +36,28 @@ TEST(Token_Int, integer) {
   EXPECT_EQ( allToken.size(), NELEMENTS(expectedInt));
 }
 
+
+TEST(Token_Int, special_chars) {
+  Tokenizer tok;
+  vector<Token *> allToken;
+  ifstream myFile;
+  int i = 0;
+
+  int expectedInt[] =
+  {12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 21, 12379, 12, 1234567890, 12};
+
+  myFile.open("../test/code/testintspecialchar.code");
+
+  allToken = tok.getAllTokens(&myFile);
+
+  for (Token *n : allToken) {
+    if (n->getType() == Token_Int) {
+      TokenInt *ti = (TokenInt *) n;
+      EXPECT_EQ( ti->getValue(), expectedInt[i]);
+      i++;
+    }
+  }
+
+  EXPECT_EQ( i, NELEMENTS(expectedInt));
+}
+
