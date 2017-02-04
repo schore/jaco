@@ -1,15 +1,41 @@
 #ifndef TOKEN_H_
 #define TOKEN_H_
 
+#include <vector>
+
 #define E_TOKEN_TYPE \
   X(Token_Undefined)\
-  X(Token_Operator)\
+  X(Token_OperatorPlus)\
+  X(Token_OperatorMinus)\
+  X(Token_OperatorDivide)\
+  X(Token_OperatorMultiply)\
+  X(Token_OperatorAssign)\
+  X(Token_OperatorEq)\
+  X(Token_OperatorNEq)\
+  X(Token_OperatorSmallerEq)\
+  X(Token_OperatorGreaterEq)\
+  X(Token_OperatorGreater)\
+  X(Token_OperatorSmaller)\
+  X(Token_OperatorLogicAnd)\
+  X(Token_OperatorLogicOr)\
+  X(Token_OperatorOr)\
+  X(Token_OperatorAnd)\
+  X(Token_OperatorShiftLeft)\
+  X(Token_OperatorShiftRight)\
+  X(Token_OperatorModulo)\
   X(Token_Double)\
   X(Token_Int)\
   X(Token_Keyword)\
   X(Token_Identifier)\
   X(Token_Semilicon)\
-  X(Token_Brace)\
+  X(Token_BraceLeft)\
+  X(Token_BraceRight)\
+  X(Token_SwiftLeft)\
+  X(Token_SwiftRight)\
+  X(Token_KeywordIf)\
+  X(Token_KeywordWhile)\
+  X(Token_KeywordFor)\
+  X(Token_KeywordElse)\
   X(Token_Eof)
 
 enum eTokenType {
@@ -21,11 +47,26 @@ enum eTokenType {
 class Token {
     const eTokenType type;
 
+    double dValue;
+    int intValue;
+
+    char * str;
+
   public:
-    Token(eTokenType type) : type(type) {};
+    Token(eTokenType type);
+    virtual ~Token();
+
     eTokenType getType() {return this->type;};
 
     void printToken();
+
+    void setInt(int intValue) { this->intValue = intValue; }
+    int getInt() { return this->intValue; }
+
+    void setDouble( double dValue) { this->dValue = dValue; }
+    double getDouble() {return this->dValue;}
+
+    void setStr(std::vector<char> vect);
 };
 
 #endif

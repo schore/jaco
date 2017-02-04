@@ -5,7 +5,6 @@
 
 #include "tokenizer.h"
 #include "token.h"
-#include "tokens/TokenOperator.h"
 #include "utility.h"
 
 using ::testing::Return;
@@ -17,26 +16,26 @@ TEST(TokenOperator, readIn) {
   ifstream myFile;
   int i = 0;
 
-  TokenOperatorType expectedType[] = {
-    TokOperatioSmallerEq,
-    TokOperatorPlus,
-    TokOperatorMinus,
-    TokOperatorDivide,
-    TokOperatorMultiply,
-    TokOperatorAssign,
-    TokOperatorEq,
-    TokOperatorNEq,
-    TokOperatioSmallerEq,
-    TokOperatorGreaterEq,
-    TokOperatorGreater,
-    TokOperatorSmaller,
-    TokOperatorLogicAnd,
-    TokOperatorLogicOr,
-    TokOperatorOr,
-    TokOperatorAnd,
-    TokOperatorShiftLeft,
-    TokOperatorShiftRight,
-    TokOperatorModulo,
+  eTokenType expectedType[] = {
+    Token_OperatorSmallerEq,
+    Token_OperatorPlus,
+    Token_OperatorMinus,
+    Token_OperatorDivide,
+    Token_OperatorMultiply,
+    Token_OperatorAssign,
+    Token_OperatorEq,
+    Token_OperatorNEq,
+    Token_OperatorSmallerEq,
+    Token_OperatorGreaterEq,
+    Token_OperatorGreater,
+    Token_OperatorSmaller,
+    Token_OperatorLogicAnd,
+    Token_OperatorLogicOr,
+    Token_OperatorOr,
+    Token_OperatorAnd,
+    Token_OperatorShiftLeft,
+    Token_OperatorShiftRight,
+    Token_OperatorModulo,
   };
 
 
@@ -45,10 +44,7 @@ TEST(TokenOperator, readIn) {
   allToken = tok.getAllTokens(&myFile);
 
   for (Token *n : allToken) {
-    EXPECT_EQ( n->getType(), Token_Operator);
-
-    TokenOperator *ti = (TokenOperator *) n;
-    EXPECT_EQ( ti->getOpType(), expectedType[i]);
+    EXPECT_EQ( n->getType(), expectedType[i]);
     i++;
   }
 
@@ -62,26 +58,26 @@ TEST(TokenOperator, readInWithChars) {
   ifstream myFile;
   int i = 0;
 
-  TokenOperatorType expectedType[] = {
-    TokOperatioSmallerEq,
-    TokOperatorPlus,
-    TokOperatorMinus,
-    TokOperatorDivide,
-    TokOperatorMultiply,
-    TokOperatorAssign,
-    TokOperatorEq,
-    TokOperatorNEq,
-    TokOperatioSmallerEq,
-    TokOperatorGreaterEq,
-    TokOperatorGreater,
-    TokOperatorSmaller,
-    TokOperatorLogicAnd,
-    TokOperatorLogicOr,
-    TokOperatorOr,
-    TokOperatorAnd,
-    TokOperatorShiftLeft,
-    TokOperatorShiftRight,
-    TokOperatorModulo,
+  eTokenType expectedType[] = {
+    Token_OperatorSmallerEq,
+    Token_OperatorPlus,
+    Token_OperatorMinus,
+    Token_OperatorDivide,
+    Token_OperatorMultiply,
+    Token_OperatorAssign,
+    Token_OperatorEq,
+    Token_OperatorNEq,
+    Token_OperatorSmallerEq,
+    Token_OperatorGreaterEq,
+    Token_OperatorGreater,
+    Token_OperatorSmaller,
+    Token_OperatorLogicAnd,
+    Token_OperatorLogicOr,
+    Token_OperatorOr,
+    Token_OperatorAnd,
+    Token_OperatorShiftLeft,
+    Token_OperatorShiftRight,
+    Token_OperatorModulo,
   };
 
 
@@ -91,9 +87,9 @@ TEST(TokenOperator, readInWithChars) {
 
   for (Token *n : allToken) {
 
-    if (n->getType() == Token_Operator) {
-      TokenOperator *ti = (TokenOperator *) n;
-      EXPECT_EQ( ti->getOpType(), expectedType[i]);
+    if (n->getType() >= Token_OperatorPlus
+        && n->getType() <= Token_OperatorModulo) {
+      EXPECT_EQ( n->getType(), expectedType[i]);
       i++;
     }
   }

@@ -5,7 +5,6 @@
 
 #include "tokenizer.h"
 #include "token.h"
-#include "tokens/TokenInt.h"
 #include "utility.h"
 
 using ::testing::Return;
@@ -28,8 +27,7 @@ TEST(Token_Int, integer) {
   for (Token *n : allToken) {
     EXPECT_EQ( n->getType(), Token_Int);
 
-    TokenInt *ti = (TokenInt *) n;
-    EXPECT_EQ( ti->getValue(), expectedInt[i]);
+    EXPECT_EQ( n->getInt(), expectedInt[i]);
     i++;
   }
 
@@ -52,8 +50,7 @@ TEST(Token_Int, special_chars) {
 
   for (Token *n : allToken) {
     if (n->getType() == Token_Int) {
-      TokenInt *ti = (TokenInt *) n;
-      EXPECT_EQ( ti->getValue(), expectedInt[i]);
+      EXPECT_EQ( n->getInt(), expectedInt[i]);
       i++;
     }
   }

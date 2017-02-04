@@ -14,3 +14,22 @@ void Token::printToken() {
 
   cout << debugStrings[this->type] << endl;
 }
+
+Token::Token(eTokenType type) :
+  type(type), dValue(0), intValue(0), str(0)
+{}
+
+Token::~Token() {
+  if (this->str) delete str;
+}
+
+void Token::setStr(vector<char> vect) {
+  int i;
+  if (this->str) delete str;
+  this->str = new char[vect.size()+1];
+
+  for (i = 0; i < vect.size(); i++)
+    this->str[i] = vect[i];
+
+  this->str[vect.size()] = 0;
+}

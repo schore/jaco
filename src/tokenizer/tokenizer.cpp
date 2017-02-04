@@ -3,13 +3,6 @@
 #include "debug_helper.h"
 
 #include "token.h"
-#include "tokens/TokenOperator.h"
-#include "tokens/TokenInt.h"
-#include "tokens/TokenDouble.h"
-#include "tokens/TokenBrace.h"
-#include "tokens/TokenKeyword.h"
-#include "tokens/TokenIdentifier.h"
-#include "tokens/TokenSemilicon.h"
 #include "utility.h"
 
 
@@ -18,13 +11,13 @@ using namespace std;
 struct StringToOperator {
   const char* str;
   int size;
-  TokenOperatorType tok;
+  eTokenType tok;
 };
 
 struct StringToKeyword {
   const char* str;
   int size;
-  TokenKeywordType type;
+  eTokenType type;
 };
 
 
@@ -45,24 +38,24 @@ static const vector<char> brace = {
   '(', ')', '{', '}'};
 
 #define MAPPING_TABLE\
-  X("+" ,    TokOperatorPlus)\
-  X("-" ,    TokOperatorMinus)\
-  X("/" ,    TokOperatorDivide)\
-  X("*" ,    TokOperatorMultiply)\
-  X("=" ,    TokOperatorAssign)\
-  X("==",    TokOperatorEq)\
-  X("!=",    TokOperatorNEq)\
-  X("<=",    TokOperatioSmallerEq)\
-  X(">=",    TokOperatorGreaterEq)\
-  X(">" ,    TokOperatorGreater)\
-  X("<" ,    TokOperatorSmaller)\
-  X("&&",    TokOperatorLogicAnd)\
-  X("||",    TokOperatorLogicOr)\
-  X("|" ,    TokOperatorOr)\
-  X("&" ,    TokOperatorAnd)\
-  X("<<",    TokOperatorShiftLeft)\
-  X(">>",    TokOperatorShiftRight)\
-  X("%" ,    TokOperatorModulo)
+  X("+" ,    Token_OperatorPlus)\
+  X("-" ,    Token_OperatorMinus)\
+  X("/" ,    Token_OperatorDivide)\
+  X("*" ,    Token_OperatorMultiply)\
+  X("=" ,    Token_OperatorAssign)\
+  X("==",    Token_OperatorEq)\
+  X("!=",    Token_OperatorNEq)\
+  X("<=",    Token_OperatorSmallerEq)\
+  X(">=",    Token_OperatorGreaterEq)\
+  X(">" ,    Token_OperatorGreater)\
+  X("<" ,    Token_OperatorSmaller)\
+  X("&&",    Token_OperatorLogicAnd)\
+  X("||",    Token_OperatorLogicOr)\
+  X("|" ,    Token_OperatorOr)\
+  X("&" ,    Token_OperatorAnd)\
+  X("<<",    Token_OperatorShiftLeft)\
+  X(">>",    Token_OperatorShiftRight)\
+  X("%" ,    Token_OperatorModulo)
 
 static const vector<StringToOperator> MappingOperators = {
 #define X(_CHAR, _TOKEN) { _CHAR, sizeof(_CHAR)-1, _TOKEN},
@@ -71,10 +64,10 @@ static const vector<StringToOperator> MappingOperators = {
 };
 
 #define KEYWORD_TABLE\
-  X("if"    , TokenKeywordIf    )\
-  X("while" , TokenKeywordWhile )\
-  X("for"   , TokenKeywordFor   )\
-  X("else"  , TokenKeywordElse  )
+  X("if"    , Token_KeywordIf    )\
+  X("while" , Token_KeywordWhile )\
+  X("for"   , Token_KeywordFor   )\
+  X("else"  , Token_KeywordElse  )
 
 static const vector<StringToKeyword> MappingKeywords = {
 #define X(_STR, _TYPE) {_STR, sizeof(_STR)-1, _TYPE},
@@ -129,8 +122,7 @@ Token *Tokenizer::createOperator(std::ifstream *pFile) {
   Token *t;
   //if not in list there is no endless loop 
   int weight=1;
-  TokenOperatorType opType = TokOperatorUndef;
-
+  eTokenType opType = Token_Undefined;
 
   pFile->get(c1);
   c2 = pFile->peek();
@@ -148,7 +140,7 @@ Token *Tokenizer::createOperator(std::ifstream *pFile) {
     }
   }
 
-  return new TokenOperator(opType);
+  return new Token(opType);
 }
 
 Token *Tokenizer::createNumber(std::ifstream *pFile){
@@ -175,8 +167,16 @@ Token *Tokenizer::createNumber(std::ifstream *pFile){
     }
     else if (this->isEndOfSequence(c)) {
       pFile->seekg(-1, ios_base::cur);
-      if (isDouble) return new TokenDouble(parsedDouble);
-      else return new TokenInt(parsedInt);
+      if (isDouble) {
+        Token *t = new Token(Token_Double);
+        t->setDouble(parsedDouble);
+        return t;
+      }
+      else {
+        Token *t = new Token(Token_Int);
+        t->setInt(parsedInt);
+        return t;
+      }
     }
     else {
       ASSERT(true, NULL);
@@ -204,7 +204,7 @@ Token *Tokenizer::createKeyword(ifstream *pFile) {
       pFile->get(c);
       i++;
       if (this->isEndOfSequence(c)) {
-        return new TokenKeyword(map.type);
+        return new Token(map.type);
       }
     }
     pFile->seekg(-i -1, ios_base::cur);
@@ -225,7 +225,9 @@ Token *Tokenizer::createIdentifier(ifstream *pFile) {
   }
   pFile->seekg(-1, ios::cur);
 
-  return new TokenIdentifier(idStr);
+  Token *t = new Token(Token_Identifier);
+  t->setStr(idStr);
+  return t;
 
 }
 
@@ -243,17 +245,17 @@ Token *Tokenizer::createWord(std::ifstream *pFile){
 Token *Tokenizer::createSpecialChar(std::ifstream *pFile) {
   char c;
   pFile->get(c);
-  return new TokenSemilicon();
+  return new Token(Token_Semilicon);
 }
 
 Token *Tokenizer::createBrace(std::ifstream *pFile){
   char c;
   pFile->get(c);
   switch(c) {
-    case '(': return new TokenBrace(TokBraceLeftRound);
-    case ')': return new TokenBrace(TokBraceRightRound);
-    case '{': return new TokenBrace(TokBraceLeftSwift);
-    case '}': return new TokenBrace(TokBraceRightSwift);
+    case '(': return new Token(Token_BraceLeft);
+    case ')': return new Token(Token_BraceRight);
+    case '{': return new Token(Token_SwiftLeft);
+    case '}': return new Token(Token_SwiftRight);
     default:
       break;
   }

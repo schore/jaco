@@ -4,7 +4,7 @@
 #include <iostream>
 
 #include "tokenizer.h"
-#include "tokens/TokenKeyword.h"
+#include "token.h"
 #include "utility.h"
 
 using ::testing::Return;
@@ -17,15 +17,15 @@ TEST(Keyword, Parse) {
   ifstream myFile;
   int i = 0;
 
-  TokenKeywordType expectedType[] = {
-    TokenKeywordIf,
-    TokenKeywordElse,
-    TokenKeywordWhile,
-    TokenKeywordFor,
-    TokenKeywordIf,
-    TokenKeywordElse,
-    TokenKeywordWhile,
-    TokenKeywordFor,
+  eTokenType expectedType[] = {
+    Token_KeywordIf,
+    Token_KeywordElse,
+    Token_KeywordWhile,
+    Token_KeywordFor,
+    Token_KeywordIf,
+    Token_KeywordElse,
+    Token_KeywordWhile,
+    Token_KeywordFor,
    };
 
   myFile.open("../test/code/keywordtest.code");
@@ -34,9 +34,9 @@ TEST(Keyword, Parse) {
 
   for (Token *n : allToken) {
 
-    if (n->getType() == Token_Keyword) {
-      TokenKeyword *ti = (TokenKeyword *) n;
-      EXPECT_EQ( ti->getKeywordType(), expectedType[i]);
+    if (n->getType() >= Token_KeywordIf
+        && n->getType() <= Token_KeywordElse) {
+      EXPECT_EQ( n->getType(), expectedType[i]);
       i++;
     }
   }

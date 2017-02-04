@@ -5,7 +5,6 @@
 
 #include "tokenizer.h"
 #include "token.h"
-#include "tokens/TokenDouble.h"
 #include "utility.h"
 
 using ::testing::Return;
@@ -27,8 +26,7 @@ TEST(TokenDouble, readIn) {
   for (Token *n : allToken) {
     EXPECT_EQ( n->getType(), Token_Double);
 
-    TokenDouble *ti = (TokenDouble *) n;
-    EXPECT_DOUBLE_EQ( ti->getValue(), expectedDouble[i]);
+    EXPECT_DOUBLE_EQ( n->getDouble(), expectedDouble[i]);
     i++;
   }
 
@@ -50,8 +48,7 @@ TEST(TokenDouble, SpecialChars) {
 
   for (Token *n : allToken) {
     if (n->getType() == Token_Double) {
-      TokenDouble *ti = (TokenDouble *) n;
-      EXPECT_DOUBLE_EQ( ti->getValue(), expectedDouble[i]);
+      EXPECT_DOUBLE_EQ( n->getDouble(), expectedDouble[i]);
       i++;
     }
   }
