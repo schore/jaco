@@ -14,6 +14,14 @@ class AstParser
     AstFunc,
     AstStmt,
     AstIdList,
+    AstStmtList,
+    AstExpr,
+    AstParExpr,
+    AstAndExpr,
+    AstPrimary,
+    AstMulExpr,
+    AstAddExpr,
+    AstEqExpr,
   };
 
   struct Element {
@@ -34,10 +42,24 @@ private:
   bool checkToken(eTokenType type, int parent);
   bool isNextToken(eTokenType type);
 
+  bool isEqualToken(int parent);
+  bool isAddToken(int parent);
+  bool isMultToken(int parent);
+
+
+
+  bool expr(int parent);
+  bool andExpr(int parent);
+  bool eqExpr(int parent);
+  bool addExpr(int parent);
+  bool mulExpr(int parent);
+  bool primary(int parent);
   bool root(int parent);
   bool func(int parent);
   bool stmt(int parent);
+  bool stmtList(int parent);
   bool idList(int parent);
+  bool parExpr(int parent);
 public:
   bool parseToken(std::vector <Token*> inStream);
 

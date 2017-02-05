@@ -55,7 +55,8 @@ static const vector<char> brace = {
   X("&" ,    Token_OperatorAnd)\
   X("<<",    Token_OperatorShiftLeft)\
   X(">>",    Token_OperatorShiftRight)\
-  X("%" ,    Token_OperatorModulo)
+  X("%" ,    Token_OperatorModulo)\
+  X("!" ,    Token_OperatorNot)
 
 static const vector<StringToOperator> MappingOperators = {
 #define X(_CHAR, _TOKEN) { _CHAR, sizeof(_CHAR)-1, _TOKEN},
@@ -68,7 +69,8 @@ static const vector<StringToOperator> MappingOperators = {
   X("while" , Token_KeywordWhile )\
   X("for"   , Token_KeywordFor   )\
   X("else"  , Token_KeywordElse  )\
-  X("func"  , Token_KeywordFunc  )
+  X("func"  , Token_KeywordFunc  )\
+  X("var"   , Token_KeywordVar   )
 
 static const vector<StringToKeyword> MappingKeywords = {
 #define X(_STR, _TYPE) {_STR, sizeof(_STR)-1, _TYPE},

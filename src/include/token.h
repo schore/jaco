@@ -22,6 +22,7 @@
   X(Token_OperatorAnd)\
   X(Token_OperatorShiftLeft)\
   X(Token_OperatorShiftRight)\
+  X(Token_OperatorNot)\
   X(Token_OperatorModulo)\
   X(Token_Double)\
   X(Token_Int)\
@@ -34,6 +35,7 @@
   X(Token_SwiftLeft)\
   X(Token_SwiftRight)\
   X(Token_KeywordIf)\
+  X(Token_KeywordVar)\
   X(Token_KeywordWhile)\
   X(Token_KeywordFor)\
   X(Token_KeywordElse)\

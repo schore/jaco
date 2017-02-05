@@ -11,7 +11,6 @@ stmt =  ';'
       | 'while' parent_expr stmt
       | 'if' parent_expr stmt ['else' stmt]
       | 'var' ident [ '=' expr] ';'
-      | ident '(' [ident ',']')'
       ;
 
 parent_expr = '(' expr ')';

@@ -1,5 +1,9 @@
 func xy1 () {
   
+  var abc = 5;
+  if (5 == abc) {
+    ;
+  }
 }
 
 func x3(ab) {
