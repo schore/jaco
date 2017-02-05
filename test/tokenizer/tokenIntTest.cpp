@@ -23,6 +23,7 @@ TEST(Token_Int, integer) {
   myFile.open("../test/code/testint.code");
 
   allToken = tok.getAllTokens(&myFile);
+  allToken.pop_back();
 
   for (Token *n : allToken) {
     EXPECT_EQ( n->getType(), Token_Int);

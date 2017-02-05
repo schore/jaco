@@ -62,7 +62,8 @@ TEST(Tokenizer, Parse) {
     Token_OperatorLogicOr,
     Token_OperatorSmallerEq,
     Token_OperatorGreaterEq,
-    Token_OperatorNEq
+    Token_OperatorNEq,
+    Token_Eof
    };
 
   myFile.open("../test/code/testcode.code");

@@ -28,6 +28,7 @@
   X(Token_Keyword)\
   X(Token_Identifier)\
   X(Token_Semilicon)\
+  X(Token_Comma)\
   X(Token_BraceLeft)\
   X(Token_BraceRight)\
   X(Token_SwiftLeft)\
@@ -36,7 +37,9 @@
   X(Token_KeywordWhile)\
   X(Token_KeywordFor)\
   X(Token_KeywordElse)\
-  X(Token_Eof)
+  X(Token_KeywordFunc)\
+  X(Token_Eof)\
+  X(Token_Error)
 
 enum eTokenType {
 #define X(_ENUM) _ENUM,

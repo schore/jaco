@@ -1,0 +1,30 @@
+root = {func} eof;
+stmt_list = {stmt}
+
+idList = { ident ','};
+
+func = 'func' ident '('idList ')' '{'stmt'}';
+
+stmt =  ';'
+      | '{' stmt_list '}'
+      | ident '=' expr ';'
+      | 'while' parent_expr stmt
+      | 'if' parent_expr stmt ['else' stmt]
+      | 'var' ident [ '=' expr] ';'
+      | ident '(' [ident ',']')'
+      ;
+
+parent_expr = '(' expr ')';
+
+
+expr = and_expr {'||' and_expr};
+and_expr = equality_expr { '&&' equality_expr}
+equality_expr = addition_expr { ('==' | '!=' | '<' | '<=' | '>' | '>=')
+                additon expr};
+addion_expr = mult_expr {('+' | '-') mult_expr}
+mult_expr = primary {'*' | '/' | '%' primary };
+primary =   ident
+          | num
+          | '(' expr ')'
+          | ('+' | '-' | '!') primary
+          ;

@@ -36,6 +36,7 @@ TEST(TokenOperator, readIn) {
     Token_OperatorShiftLeft,
     Token_OperatorShiftRight,
     Token_OperatorModulo,
+    Token_Eof,
   };
 
 

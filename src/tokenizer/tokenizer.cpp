@@ -67,7 +67,8 @@ static const vector<StringToOperator> MappingOperators = {
   X("if"    , Token_KeywordIf    )\
   X("while" , Token_KeywordWhile )\
   X("for"   , Token_KeywordFor   )\
-  X("else"  , Token_KeywordElse  )
+  X("else"  , Token_KeywordElse  )\
+  X("func"  , Token_KeywordFunc  )
 
 static const vector<StringToKeyword> MappingKeywords = {
 #define X(_STR, _TYPE) {_STR, sizeof(_STR)-1, _TYPE},
@@ -76,7 +77,7 @@ static const vector<StringToKeyword> MappingKeywords = {
 };
 
 static const vector<char> specialChars = {
-  ';'
+  ';' , ','
 };
 
 bool Tokenizer::isAllowedChar(char c) {
@@ -245,7 +246,11 @@ Token *Tokenizer::createWord(std::ifstream *pFile){
 Token *Tokenizer::createSpecialChar(std::ifstream *pFile) {
   char c;
   pFile->get(c);
-  return new Token(Token_Semilicon);
+  switch (c) {
+    case ';': return new Token(Token_Semilicon);
+    case ',': return new Token(Token_Comma);
+    default:  return new Token(Token_Error);
+  }
 }
 
 Token *Tokenizer::createBrace(std::ifstream *pFile){
@@ -287,13 +292,13 @@ vector<Token *> Tokenizer::getAllTokens(ifstream *pFile) {
   ASSERT(!pFile->is_open() , vectorToken);
 
   while(!pFile->eof()) {
-//  while(filePos != pFile->tellg()) {
     filePos = pFile->tellg();
     t = this->parse(pFile);
     if (t != NULL) {
       vectorToken.push_back(t);
     }
   }
+  vectorToken.push_back(new Token(Token_Eof));
   return vectorToken;
 
 }

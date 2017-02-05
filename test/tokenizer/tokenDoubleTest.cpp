@@ -22,6 +22,7 @@ TEST(TokenDouble, readIn) {
   myFile.open("../test/code/testdouble.code");
 
   allToken = tok.getAllTokens(&myFile);
+  allToken.pop_back();
 
   for (Token *n : allToken) {
     EXPECT_EQ( n->getType(), Token_Double);
