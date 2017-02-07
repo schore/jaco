@@ -37,7 +37,7 @@ private:
   int index;
   int parentIndex;
 
-  int addNode(ElementType type, int par);
+  int addNode(ElementType type, int par, bool newElement);
 
   bool checkToken(eTokenType type, int parent);
   bool isNextToken(eTokenType type);
@@ -45,21 +45,22 @@ private:
   bool isEqualToken(int parent);
   bool isAddToken(int parent);
   bool isMultToken(int parent);
+  bool isAssign(int parent);
 
 
 
-  bool expr(int parent);
-  bool andExpr(int parent);
-  bool eqExpr(int parent);
-  bool addExpr(int parent);
-  bool mulExpr(int parent);
-  bool primary(int parent);
-  bool root(int parent);
-  bool func(int parent);
-  bool stmt(int parent);
-  bool stmtList(int parent);
-  bool idList(int parent);
-  bool parExpr(int parent);
+  bool expr(int parent, bool newElement = true);
+  bool andExpr(int parent, bool newElement = true);
+  bool eqExpr(int parent, bool newElement = true);
+  bool addExpr(int parent, bool newElement = true);
+  bool mulExpr(int parent, bool newElement = true);
+  bool primary(int parent, bool newElement = true);
+  bool root(int parent, bool newElement = true);
+  bool func(int parent, bool newElement = true);
+  bool stmt(int parent, bool newElement = true);
+  bool stmtList(int parent, bool newElement = true);
+  bool idList(int parent, bool newElement = true);
+  bool parExpr(int parent, bool newElement = true);
 public:
   bool parseToken(std::vector <Token*> inStream);
 

@@ -20,20 +20,22 @@ bool AstParser::isNextToken(eTokenType type) {
   return (type == this->inStream[this->index]->getType());
 }
 
-int AstParser::addNode(ElementType type, int par) {
+int AstParser::addNode(ElementType type, int par, bool newElement) {
   Element e;
   e.type = type;
   e.parent = par;
+
+  if (newElement) return par;
 
   this->node.push_back(e);
   return this->parentIndex++;
 }
 
-bool AstParser::stmtList(int parent) {
-  int par = this->addNode(AstStmtList, parent);
+bool AstParser::stmtList(int parent, bool newElement) {
+  int par = this->addNode(AstStmtList, parent, newElement);
   int safe = this->index;
   return    (this->stmt(par)
-          && this->stmtList(par))
+          && this->stmtList(par, false))
       ||    (this->index = safe,
              this->stmt(par))
       ||    (this->index = safe,
@@ -49,8 +51,8 @@ bool AstParser::isMultToken(int parent) {
 }
 
 
-bool AstParser::primary(int parent) {
-  int par = this->addNode(AstPrimary, parent);
+bool AstParser::primary(int parent, bool newElement) {
+  int par = this->addNode(AstPrimary, parent, newElement);
   int safe = this->index;
   return    (this->index = safe,
              this->checkToken(Token_Identifier, par))
@@ -67,21 +69,21 @@ bool AstParser::primary(int parent) {
          &&  this->primary(par))
       ||    (this->index = safe,
              this->checkToken(Token_OperatorMinus, par)
-         &&  this->primary(par))
+         &&  this->primary(par, false))
       ||    (this->index = safe,
              this->checkToken(Token_OperatorNot, par)
-         &&  this->primary(par));
+         &&  this->primary(par, false));
 ;
 }
 
 
 
-bool AstParser::mulExpr(int parent) {
-  int par = this->addNode(AstMulExpr, parent);
+bool AstParser::mulExpr(int parent, bool newElement) {
+  int par = this->addNode(AstMulExpr, parent, newElement);
   int safe = this->index;
   return     (this->primary(par)
            && this->isMultToken(par)
-           && this->mulExpr(par))
+           && this->mulExpr(par, false))
         ||   (this->index = safe,
               this->primary(par));
 }
@@ -93,12 +95,12 @@ bool AstParser::isAddToken(int parent) {
     ||   (this->index = safe, this->checkToken(Token_OperatorMinus, parent));
 }
 
-bool AstParser::addExpr(int parent) {
-  int par = this->addNode(AstAddExpr, parent);
+bool AstParser::addExpr(int parent, bool newElement) {
+  int par = this->addNode(AstAddExpr, parent, newElement);
   int safe = this->index;
   return     (this->mulExpr(par)
            && this->isAddToken(par)
-           && this->addExpr(par))
+           && this->addExpr(par, false))
         ||   (this->index = safe,
               this->mulExpr(par));
 }
@@ -115,46 +117,46 @@ bool AstParser::isEqualToken(int parent) {
 
 }
 
-bool AstParser::eqExpr(int parent) {
-  int par = this->addNode(AstEqExpr, parent);
+bool AstParser::eqExpr(int parent, bool newElement) {
+  int par = this->addNode(AstEqExpr, parent, newElement);
   int safe = this->index;
   return     (this->addExpr(par)
            && this->isEqualToken(par)
-           && this->eqExpr(par))
+           && this->eqExpr(par, false))
         ||   (this->index = safe,
               this->addExpr(par));
 }
 
-bool AstParser::andExpr(int parent) {
-  int par = this->addNode(AstAndExpr, parent);
+bool AstParser::andExpr(int parent, bool newElement) {
+  int par = this->addNode(AstAndExpr, parent, newElement);
   int safe = this->index;
   return     (this->eqExpr(par)
            && this->checkToken(Token_OperatorLogicAnd, par)
-           && this->andExpr(par))
+           && this->andExpr(par, false))
         ||   (this->index = safe,
               this->eqExpr(par));
 }
 
-bool AstParser::expr(int parent) {
-  int par = this->addNode(AstExpr, parent);
+bool AstParser::expr(int parent, bool newElement) {
+  int par = this->addNode(AstExpr, parent, newElement);
   int safe = this->index;
   return     (this->andExpr(par)
            && this->checkToken(Token_OperatorLogicOr, par)
-           && this->expr(par))
+           && this->expr(par, false))
         ||   (this->index = safe,
               this->andExpr(par));
 }
 
-bool AstParser::parExpr(int parent) {
-  int par = this->addNode(AstParExpr, parent);
+bool AstParser::parExpr(int parent, bool newElement) {
+  int par = this->addNode(AstParExpr, parent, newElement);
   int safe = this->index;
   return    this->checkToken(Token_BraceLeft, par)
          && this->expr(par)
          && this->checkToken(Token_BraceRight, par);
 }
 
-bool AstParser::stmt(int parent) {
-  int par = this->addNode(AstFunc, parent);
+bool AstParser::stmt(int parent, bool newElement) {
+  int par = this->addNode(AstFunc, parent, newElement);
   int safe = this->index;
 
   return      (this->index = safe,
@@ -194,25 +196,24 @@ bool AstParser::stmt(int parent) {
            &&  this->checkToken(Token_Semilicon, par));
 }
 
-bool AstParser::idList(int parent) {
-  int par = this->addNode(AstIdList, parent);
+bool AstParser::idList(int parent, bool newElement) {
+  int par = this->addNode(AstIdList, parent, newElement);
   int safe = this->index;
-  bool ret = false;
 
   return       this->isNextToken(Token_BraceRight)
          ||(   this->checkToken(Token_Identifier, par)
             && this->isNextToken(Token_BraceRight))
          ||((  this->index = safe,
                this->checkToken(Token_Identifier, par)
-            && this->idList(par)))
+            && this->idList(par, false)))
          ||((  this->index = safe,
                this->checkToken(Token_Comma, par)
             && this->checkToken(Token_Identifier, par)
-            && this->idList(par)));
+            && this->idList(par, false)));
 }
 
-bool AstParser::func(int parent) {
-  int par = this->addNode(AstFunc, parent);
+bool AstParser::func(int parent, bool newElement) {
+  int par = this->addNode(AstFunc, parent, newElement);
   int safe = this->index;
   bool ret =  this->checkToken(Token_KeywordFunc, par)
           &&  this->checkToken(Token_Identifier, par)
@@ -222,12 +223,12 @@ bool AstParser::func(int parent) {
           &&  this->stmt(par);
 }
 
-bool AstParser::root(int parent) {
-  int par = this->addNode(AstRoot, parent);
+bool AstParser::root(int parent, bool newElement) {
+  int par = this->addNode(AstRoot, parent, newElement);
   int safe = this->index;
   return (   this->checkToken(Token_Eof, par)
           || (this->index = safe,
-              this->func(par) && this->root(par)));
+              this->func(par) && this->root(par, false)));
 
 }
 
@@ -237,7 +238,7 @@ bool AstParser::parseToken(vector <Token *> inStream) {
   this->parentIndex = 0;
   this->parent.resize(inStream.size(), 0);
 
-  int par = this->addNode(AstEntry, -1);
+  int par = this->addNode(AstEntry, -1, true);
 
   this->root(par);
 
