@@ -5,28 +5,38 @@
 #include "token.h"
 #include "AstElement.h"
 
+#define AST_ELEMENT\
+  X(AstEntry)\
+  X(AstRoot)\
+  X(AstFunc)\
+  X(AstStmt)\
+  X(AstIdList)\
+  X(AstStmtList)\
+  X(AstExpr)\
+  X(AstParExpr)\
+  X(AstAndExpr)\
+  X(AstPrimary)\
+  X(AstMulExpr)\
+  X(AstAddExpr)\
+  X(AstEqExpr)\
+
 class Token;
 class AstParser
 {
   enum ElementType {
-    AstEntry,
-    AstRoot,
-    AstFunc,
-    AstStmt,
-    AstIdList,
-    AstStmtList,
-    AstExpr,
-    AstParExpr,
-    AstAndExpr,
-    AstPrimary,
-    AstMulExpr,
-    AstAddExpr,
-    AstEqExpr,
+#define X(type) type,
+    AST_ELEMENT
+#undef X
   };
 
-  struct Element {
-    ElementType type;
-    int parent;
+  class Element {
+    public:
+      ElementType type;
+      int parent;
+      bool used;
+      AstElement *el;
+
+      void printType();
   };
 
 private:
@@ -61,6 +71,9 @@ private:
   bool stmtList(int parent, bool newElement = true);
   bool idList(int parent, bool newElement = true);
   bool parExpr(int parent, bool newElement = true);
+
+  void cleanTree();
+  void buildTree();
 public:
   bool parseToken(std::vector <Token*> inStream);
 

@@ -8,10 +8,11 @@ class AstElement : public AstElementTree
 {
 private:
   std::vector <AstElement *> leaves;
+  int type;
 
 public:
   void addLeave(AstElement *leave);
-  void removLeaves();
+  void removeLeaves();
 
   AstElement() {};
   virtual ~AstElement() {};

@@ -10,9 +10,7 @@ using namespace std;
 AstParser::AstParser() : index(-1) {};
 
 bool AstParser::checkToken(eTokenType type, int parent) {
-  cout << "Consumed " << this->index << " " << parent << " ";
   this->parent[this->index] = parent;
-  this->inStream[this->index]->printToken();
   return (type == this->inStream[this->index++]->getType());
 }
 
@@ -24,8 +22,9 @@ int AstParser::addNode(ElementType type, int par, bool newElement) {
   Element e;
   e.type = type;
   e.parent = par;
+  e.used = false;
 
-  if (newElement) return par;
+  if (!newElement) return par;
 
   this->node.push_back(e);
   return this->parentIndex++;
@@ -156,7 +155,7 @@ bool AstParser::parExpr(int parent, bool newElement) {
 }
 
 bool AstParser::stmt(int parent, bool newElement) {
-  int par = this->addNode(AstFunc, parent, newElement);
+  int par = this->addNode(AstStmt, parent, newElement);
   int safe = this->index;
 
   return      (this->index = safe,
@@ -232,26 +231,56 @@ bool AstParser::root(int parent, bool newElement) {
 
 }
 
+void AstParser::cleanTree() {
+  int par;
+  for (int n : this->parent) {
+    par = n;
+    while ( par > 0) {
+      this->node[par].used = true;
+      par = this->node[par].parent;
+    }
+  }
+}
+
+void AstParser::buildTree() {
+  int i=0;
+  for ( Element &n : this->node) {
+    if (n.used) {
+      n.el = new AstElement();
+
+      if (n.parent > 0) {
+        this->node[n.parent].el->addLeave(n.el);
+      }
+
+      cout << i << " ";
+      n.printType();
+      cout << " " << n.parent << endl;
+    }
+    i++;
+  }
+}
+
 bool AstParser::parseToken(vector <Token *> inStream) {
   this->inStream = inStream;
   this->index = 0;
   this->parentIndex = 0;
   this->parent.resize(inStream.size(), 0);
 
-  int par = this->addNode(AstEntry, -1, true);
+  int par = this->addNode(AstEntry, 1, true);
 
   this->root(par);
-
-  for ( Element n : this->node) {
-   cout << n.type << " " << n.parent << endl;
-  }
-
-  cout << endl;
-
-  int i;
-  for ( int j : parent) {
-    cout << i++ << " " << j << endl;
-  }
+  this->cleanTree();
+  this->buildTree();
 
   return false;
+}
+
+void AstParser::Element::printType() {
+  const static char * str[] = {
+#define X(type) #type,
+    AST_ELEMENT
+#undef X
+  };
+
+  cout << str[this->type];
 }
