@@ -6,6 +6,8 @@ class AstElementTree
 private:
 
 public:
+  virtual void print(int ident = 0) = 0;
+
   AstElementTree() {};
   virtual ~AstElementTree() {};
 };

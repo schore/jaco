@@ -154,6 +154,67 @@ bool AstParser::parExpr(int parent, bool newElement) {
          && this->checkToken(Token_BraceRight, par);
 }
 
+
+bool AstParser::stmtWhile(int parent, bool newElement) {
+  int par = this->addNode(AstStmtWhile, parent, newElement);
+  int safe = this->index;
+
+  return      (this->index = safe,
+               this->checkToken(Token_KeywordWhile, par)
+           &&  this->parExpr(par)
+           &&  this->stmt(par));
+}
+
+
+
+bool AstParser::stmtIf(int parent, bool newElement) {
+  int par = this->addNode(AstStmtIf, parent, newElement);
+  int safe = this->index;
+
+  return      (this->index = safe,
+               this->checkToken(Token_KeywordIf, par)
+           &&  this->parExpr(par)
+           &&  this->stmt(par)
+           &&  this->checkToken(Token_KeywordElse, par)
+           &&  this->stmt(par))
+         ||   (this->index = safe,
+               this->checkToken(Token_KeywordIf, par)
+           &&  this->parExpr(par)
+           &&  this->stmt(par));
+}
+
+
+bool AstParser::stmtDeclaration(int parent, bool newElement) {
+  int par = this->addNode(AstStmtDeclaration, parent, newElement);
+  int safe = this->index;
+
+  return      (this->index = safe,
+               this->checkToken(Token_KeywordVar, par)
+           &&  this->checkToken(Token_Identifier, par)
+           &&  this->checkToken(Token_OperatorAssign, par)
+           &&  this->expr(par)
+           &&  this->checkToken(Token_Semilicon, par))
+         ||   (this->index = safe,
+               this->checkToken(Token_KeywordVar, par)
+           &&  this->checkToken(Token_Identifier, par)
+           &&  this->checkToken(Token_Semilicon, par));
+}
+
+
+
+bool AstParser::stmtAssigment(int parent, bool newElement) {
+  int par = this->addNode(AstStmtAssignment, parent, newElement);
+  int safe = this->index;
+  return      (this->index = safe,
+               this->checkToken(Token_Identifier, par)
+           &&  this->checkToken(Token_OperatorEq, par)
+           &&  this->expr(par)
+           &&  this->checkToken(Token_Semilicon, par));
+
+}
+
+
+
 bool AstParser::stmt(int parent, bool newElement) {
   int par = this->addNode(AstStmt, parent, newElement);
   int safe = this->index;
@@ -165,34 +226,13 @@ bool AstParser::stmt(int parent, bool newElement) {
            &&  this->stmtList(par)
            &&  this->checkToken(Token_SwiftRight, par))
          ||   (this->index = safe,
-               this->checkToken(Token_Identifier, par)
-           &&  this->checkToken(Token_OperatorEq, par)
-           &&  this->expr(par)
-           &&  this->checkToken(Token_Semilicon, par))
+               this->stmtAssigment(par))
          ||   (this->index = safe,
-               this->checkToken(Token_KeywordWhile, par)
-           &&  this->parExpr(par)
-           &&  this->stmt(parent))
+               this->stmtWhile(par))
          ||   (this->index = safe,
-               this->checkToken(Token_KeywordIf, par)
-           &&  this->parExpr(par)
-           &&  this->stmt(par)
-           &&  this->checkToken(Token_KeywordElse, par)
-           &&  this->stmt(par))
+               this->stmtIf(par))
          ||   (this->index = safe,
-               this->checkToken(Token_KeywordIf, par)
-           &&  this->parExpr(par)
-           &&  this->stmt(par))
-         ||   (this->index = safe,
-               this->checkToken(Token_KeywordVar, par)
-           &&  this->checkToken(Token_Identifier, par)
-           &&  this->checkToken(Token_OperatorAssign, par)
-           &&  this->expr(par)
-           &&  this->checkToken(Token_Semilicon, par))
-         ||   (this->index = safe,
-               this->checkToken(Token_KeywordVar, par)
-           &&  this->checkToken(Token_Identifier, par)
-           &&  this->checkToken(Token_Semilicon, par));
+               this->stmtDeclaration(par));
 }
 
 bool AstParser::idList(int parent, bool newElement) {
@@ -243,20 +283,18 @@ void AstParser::cleanTree() {
 }
 
 void AstParser::buildTree() {
-  int i=0;
   for ( Element &n : this->node) {
     if (n.used) {
-      n.el = new AstElement();
-
+      n.el = new AstElement(n.type);
       if (n.parent > 0) {
         this->node[n.parent].el->addLeave(n.el);
       }
-
-      cout << i << " ";
-      n.printType();
-      cout << " " << n.parent << endl;
     }
-    i++;
+  }
+
+  for ( int i = 0; i < this->inStream.size(); i++) {
+    AstTerm *t = new AstTerm(this->inStream[i]);
+    this->node[this->parent[i]].el->addLeave(t);
   }
 }
 
@@ -272,15 +310,9 @@ bool AstParser::parseToken(vector <Token *> inStream) {
   this->cleanTree();
   this->buildTree();
 
+  this->node[1].el->print();
+
   return false;
 }
 
-void AstParser::Element::printType() {
-  const static char * str[] = {
-#define X(type) #type,
-    AST_ELEMENT
-#undef X
-  };
 
-  cout << str[this->type];
-}

@@ -3,12 +3,16 @@
 
 #include "AstElementTree.h"
 
+class Token;
 class AstTerm : public AstElementTree
 {
 private:
+  Token *pTok;
 
 public:
-  AstTerm() {};
+  void print(int ident = 0);
+
+  AstTerm(Token *pTok) : pTok(pTok){};
   virtual ~AstTerm() {};
 };
 
