@@ -14,14 +14,18 @@ class AstParser
       int parent;
       bool used;
       AstElement *el;
+  };
 
-      void printType();
+  class InputStream {
+    public:
+      Token *tok;
+      int parent;
+      int pos;
   };
 
 private:
-  std::vector <Token *> inStream;
-  std::vector <int> parent;
   std::vector <Element> node;
+  std::vector <InputStream> inpStream;
 
   int index;
   int parentIndex;

@@ -10,12 +10,13 @@ using namespace std;
 AstParser::AstParser() : index(-1) {};
 
 bool AstParser::checkToken(eTokenType type, int parent) {
-  this->parent[this->index] = parent;
-  return (type == this->inStream[this->index++]->getType());
+  this->inpStream[this->index].parent = parent;
+  this->inpStream[this->index].pos = this->node.size();
+  return (type == this->inpStream[this->index++].tok->getType());
 }
 
 bool AstParser::isNextToken(eTokenType type) {
-  return (type == this->inStream[this->index]->getType());
+  return (type == this->inpStream[this->index].tok->getType());
 }
 
 int AstParser::addNode(ElementType type, int par, bool newElement) {
@@ -273,8 +274,8 @@ bool AstParser::root(int parent, bool newElement) {
 
 void AstParser::cleanTree() {
   int par;
-  for (int n : this->parent) {
-    par = n;
+  for (InputStream &st : this->inpStream) {
+    par = st.parent;
     while ( par > 0) {
       this->node[par].used = true;
       par = this->node[par].parent;
@@ -283,26 +284,41 @@ void AstParser::cleanTree() {
 }
 
 void AstParser::buildTree() {
-  for ( Element &n : this->node) {
-    if (n.used) {
-      n.el = new AstElement(n.type);
-      if (n.parent > 0) {
-        this->node[n.parent].el->addLeave(n.el);
+  int j = 0;
+
+  for( int i = 0; i < this->node.size(); i++) {
+    while ( this->inpStream[j].pos <= i && this->inpStream.size() > j) {
+      AstTerm *t = new AstTerm(this->inpStream[j].tok);
+      this->node[this->inpStream[j].parent].el->addLeave(t);
+      j++;
+    }
+
+    if (this->node[i].used) {
+      this->node[i].el = new AstElement(this->node[i].type);
+
+      if (this->node[i].parent > 0) {
+        this->node[this->node[i].parent].el->addLeave(this->node[i].el);
       }
     }
   }
 
-  for ( int i = 0; i < this->inStream.size(); i++) {
-    AstTerm *t = new AstTerm(this->inStream[i]);
-    this->node[this->parent[i]].el->addLeave(t);
+  while (  this->inpStream.size() > j) {
+    AstTerm *t = new AstTerm(this->inpStream[j].tok);
+    this->node[this->inpStream[j].parent].el->addLeave(t);
+    j++;
   }
 }
 
 bool AstParser::parseToken(vector <Token *> inStream) {
-  this->inStream = inStream;
+
+  for (Token *tok : inStream) {
+    InputStream in;
+    in.tok = tok;
+
+    this->inpStream.push_back(in);
+  }
   this->index = 0;
   this->parentIndex = 0;
-  this->parent.resize(inStream.size(), 0);
 
   int par = this->addNode(AstEntry, 1, true);
 
