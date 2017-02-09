@@ -12,6 +12,8 @@ AstParser::AstParser() : index(-1) {};
 bool AstParser::checkToken(eTokenType type, int parent) {
   this->inpStream[this->index].parent = parent;
   this->inpStream[this->index].pos = this->node.size();
+//  cout << parent << " " << this->index << " ";
+//  this->inpStream[this->index].tok->printToken();
   return (type == this->inpStream[this->index++].tok->getType());
 }
 
@@ -208,10 +210,9 @@ bool AstParser::stmtAssigment(int parent, bool newElement) {
   int safe = this->index;
   return      (this->index = safe,
                this->checkToken(Token_Identifier, par)
-           &&  this->checkToken(Token_OperatorEq, par)
+           &&  this->checkToken(Token_OperatorAssign, par)
            &&  this->expr(par)
            &&  this->checkToken(Token_Semilicon, par));
-
 }
 
 
