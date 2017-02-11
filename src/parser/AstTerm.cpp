@@ -12,3 +12,13 @@ void AstTerm::print(int ident) {
   cout << "Term ";
   this->pTok->printToken();
 }
+
+
+void AstTerm::createTestStruct(vector <AstTestStruct> &output, int ident) {
+  AstTestStruct t;
+  t.isNode = false;
+  t.nodes = ident;
+  t.type = this->pTok->getType();
+  output.push_back(t);
+}
+

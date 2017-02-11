@@ -40,6 +40,10 @@ public:
   void addLeave(AstElementTree *leave);
   void print(int ident = 0);
 
+  void createTestStruct(std::vector <AstTestStruct> &testOutput,
+                                int ident = 0);
+
+
   AstElement(ElementType type) : type(type) {};
   virtual ~AstElement() {};
 };

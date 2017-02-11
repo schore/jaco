@@ -323,13 +323,15 @@ bool AstParser::parseToken(vector <Token *> inStream) {
 
   int par = this->addNode(AstEntry, 1, true);
 
-  this->root(par);
+  if(!this->root(par)) return false;
   this->cleanTree();
   this->buildTree();
 
-  this->node[1].el->print();
+  return true;
+}
 
-  return false;
+AstElement * AstParser::getRootNode() {
+  return this->node[1].el;
 }
 
 

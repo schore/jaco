@@ -11,6 +11,9 @@ private:
 
 public:
   void print(int ident = 0);
+  void createTestStruct(std::vector <AstTestStruct> &testOutput,
+                                int ident = 0);
+
 
   AstTerm(Token *pTok) : pTok(pTok){};
   virtual ~AstTerm() {};

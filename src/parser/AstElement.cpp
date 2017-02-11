@@ -1,4 +1,5 @@
 #include "AstElement.h"
+#include "AstElementTree.h"
 
 #include <iostream>
 
@@ -24,6 +25,20 @@ void AstElement::print(int ident) {
 
   for( AstElementTree *e : this->leaves) {
     e->print(ident);
+  }
+}
+
+
+void AstElement::createTestStruct(vector<AstTestStruct> &output, int ident) {
+  AstTestStruct t;
+  t.isNode = true;
+  t.nodes = ident;
+  t.type = this->type;
+
+  output.push_back(t);
+
+  for( AstElementTree *e : this->leaves) {
+    e->createTestStruct(output, ident+1);
   }
 }
 

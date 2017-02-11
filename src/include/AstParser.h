@@ -66,6 +66,8 @@ private:
 public:
   bool parseToken(std::vector <Token*> inStream);
 
+  AstElement *getRootNode();
+
   AstParser();
   virtual ~AstParser() {};
 };
