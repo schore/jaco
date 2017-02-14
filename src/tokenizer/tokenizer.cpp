@@ -5,6 +5,8 @@
 #include "token.h"
 #include "utility.h"
 
+#include <string>
+
 
 using namespace std;
 
@@ -219,7 +221,7 @@ Token *Tokenizer::createKeyword(ifstream *pFile) {
 Token *Tokenizer::createIdentifier(ifstream *pFile) {
   char c;
 
-  vector<char> idStr;
+  string idStr;
 
   pFile->get(c);
   while(this->isAllowedChar(c)) {

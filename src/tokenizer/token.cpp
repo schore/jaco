@@ -16,20 +16,12 @@ void Token::printToken() {
 }
 
 Token::Token(eTokenType type) :
-  type(type), dValue(0), intValue(0), str(0)
+  type(type), dValue(0), intValue(0), str()
 {}
 
 Token::~Token() {
-  if (this->str) delete str;
 }
 
-void Token::setStr(vector<char> vect) {
-  int i;
-  if (this->str) delete str;
-  this->str = new char[vect.size()+1];
-
-  for (i = 0; i < vect.size(); i++)
-    this->str[i] = vect[i];
-
-  this->str[vect.size()] = 0;
+void Token::setStr(string str) {
+  this->str = str;
 }

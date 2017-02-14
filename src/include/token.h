@@ -2,6 +2,7 @@
 #define TOKEN_H_
 
 #include <vector>
+#include <string>
 
 #define E_TOKEN_TYPE \
   X(Token_Undefined)\
@@ -55,7 +56,7 @@ class Token {
     double dValue;
     int intValue;
 
-    char * str;
+    std::string str;
 
   public:
     Token(eTokenType type);
@@ -71,7 +72,7 @@ class Token {
     void setDouble( double dValue) { this->dValue = dValue; }
     double getDouble() {return this->dValue;}
 
-    void setStr(std::vector<char> vect);
+    void setStr(std::string str);
 };
 
 #endif
