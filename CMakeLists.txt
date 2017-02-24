@@ -37,12 +37,16 @@ find_package(GTest REQUIRED)
 enable_testing()
 include_directories(${GTEST_INCLUDE_DIRS})
 
+add_custom_target(testcode)
+
+
 macro(Mytest testname src)
   if (BUILD_TEST)
-    add_executable(${testname} "${src}")
+    add_executable(${testname} EXCLUDE_FROM_ALL "${src}")
     target_link_libraries(${testname} pthread)
     target_link_libraries(${testname} ${GTEST_BOTH_LIBRARIES})
     target_link_libraries(${testname} compilerLib)
+    add_dependencies(testcode  ${testname}) 
     add_test(${testname} ${testname})
   endif()
 endmacro(Mytest)
