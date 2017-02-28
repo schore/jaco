@@ -54,7 +54,7 @@ TEST(Parser, Testfunction) {
 
   EXPECT_TRUE(succes);
 
-  AstElement *t = pars.getRootNode();
+  AstElementTree *t = pars.getRootNode();
   //t->print();
 
   vector <AstTestStruct> vec;

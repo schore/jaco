@@ -289,13 +289,13 @@ void AstParser::buildTree() {
 
   for( int i = 0; i < this->node.size(); i++) {
     while ( this->inpStream[j].pos <= i && this->inpStream.size() > j) {
-      AstTerm *t = new AstTerm(this->inpStream[j].tok);
+      AstElementTree *t = AstElementTree::createElement(this->inpStream[j].tok);
       this->node[this->inpStream[j].parent].el->addLeave(t);
       j++;
     }
 
     if (this->node[i].used) {
-      this->node[i].el = new AstElement(this->node[i].type);
+      this->node[i].el = AstElementTree::createElement(this->node[i].type);
 
       if (this->node[i].parent > 0) {
         this->node[this->node[i].parent].el->addLeave(this->node[i].el);
@@ -330,7 +330,7 @@ bool AstParser::parseToken(vector <Token *> inStream) {
   return true;
 }
 
-AstElement * AstParser::getRootNode() {
+AstElementTree * AstParser::getRootNode() {
   return this->node[1].el;
 }
 

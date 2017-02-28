@@ -10,6 +10,9 @@ private:
   Token *pTok;
 
 public:
+  bool addLeave(AstElementTree *t) {return false;}
+
+
   void print(int ident = 0);
   void createTestStruct(std::vector <AstTestStruct> &testOutput,
                                 int ident = 0);

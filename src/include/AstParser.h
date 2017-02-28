@@ -13,7 +13,7 @@ class AstParser
       ElementType type;
       int parent;
       bool used;
-      AstElement *el;
+      AstElementTree *el;
   };
 
   class InputStream {
@@ -66,7 +66,7 @@ private:
 public:
   bool parseToken(std::vector <Token*> inStream);
 
-  AstElement *getRootNode();
+  AstElementTree *getRootNode();
 
   AstParser();
   virtual ~AstParser() {};

@@ -5,8 +5,9 @@
 
 using namespace std;
 
-void AstElement::addLeave(AstElementTree *leave) {
+bool AstElement::addLeave(AstElementTree *leave) {
   this->leaves.push_back(leave);
+  return true;
 }
 
 
