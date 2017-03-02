@@ -70,3 +70,6 @@ WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
 COMMENT "Generating API documentation with Doxygen" VERBATIM
 )
 endif(DOXYGEN_FOUND)
+
+add_custom_target(release)
+add_dependencies(release doc compiler testcode)
