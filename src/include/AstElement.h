@@ -4,9 +4,11 @@
 #include "AstElementTree.h"
 #include <vector>
 
+class SymbolTable;
 class AstElement : public AstElementTree
 {
 private:
+protected:
   std::vector <AstElementTree *> leaves;
   ElementType type;
 
@@ -16,6 +18,8 @@ public:
 
   void createTestStruct(std::vector <AstTestStruct> &testOutput,
                                 int ident = 0);
+
+  bool buildFuncSymbolTable(SymbolTable &s);
 
 
   AstElement(ElementType type) : type(type) {};

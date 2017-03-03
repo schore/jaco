@@ -6,6 +6,7 @@
 class EleStmtList : public AstElement
 {
 private:
+protected:
 
 public:
   EleStmtList() : AstElement(AstStmtList) {};

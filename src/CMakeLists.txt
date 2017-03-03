@@ -8,6 +8,7 @@ set(SOURCE
   ${CMAKE_CURRENT_SOURCE_DIR}/parser/AstElement.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/parser/AstTerm.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/parser/AstElementTree.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/parser/customElements/EleFunction.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/symboltable/symbolTable.cpp
 PARENT_SCOPE
   )

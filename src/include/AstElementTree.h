@@ -35,6 +35,7 @@ struct AstTestStruct {
 };
 
 class Token;
+class SymbolTable;
 class AstElementTree
 {
 private:
@@ -43,10 +44,15 @@ public:
   virtual void print(int ident = 0) = 0;
   virtual void createTestStruct(std::vector <AstTestStruct> &testOutput,
                                 int ident = 0) = 0;
+
+  virtual bool buildEleFuncSymbolTable(SymbolTable &s) { return true; };
+
   virtual bool addLeave(AstElementTree *t) = 0;
 
   static AstElementTree *createElement(ElementType type);
   static AstElementTree *createElement(Token *tok);
+
+  virtual bool buildFuncSymbolTable(SymbolTable &s) { return true; };
 
   AstElementTree() {};
   virtual ~AstElementTree() {};

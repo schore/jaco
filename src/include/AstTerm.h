@@ -10,6 +10,7 @@ private:
   Token *pTok;
 
 public:
+  const Token *getPTok() const { return this->pTok; };
   bool addLeave(AstElementTree *t) {return false;}
 
 

@@ -43,4 +43,17 @@ void AstElement::createTestStruct(vector<AstTestStruct> &output, int ident) {
   }
 }
 
+bool AstElement::buildFuncSymbolTable(SymbolTable &s) {
+
+  bool ret;
+
+  ret = this->buildEleFuncSymbolTable(s);
+
+  for ( AstElementTree *l : this->leaves) {
+    ret &= l->buildFuncSymbolTable(s);
+  }
+
+  return ret;
+}
+
 

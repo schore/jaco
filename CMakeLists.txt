@@ -58,6 +58,7 @@ Mytest(TokenOperator "test/tokenizer/tokenOperatorTest.cpp")
 Mytest(TokenKeyword "test/tokenizer/keywordidentifier.cpp")
 Mytest(ParserFunc "test/parser/functionTest.cpp")
 Mytest(SymbolTable "test/symboltable.cpp")
+Mytest(FunctionElement "test/parser/functionCustomElement.cpp")
 
 
 # add a target to generate API documentation with Doxygen

@@ -1,0 +1,22 @@
+func xy1 () {
+  ox = 1;
+  var abc = 5;
+  if (5 == abc) {
+    ;
+  }
+}
+
+func x3(ab) {
+}
+
+func z2(n,a,c) {}
+
+func z2(n,a,c) {}
+
+func z3(n) {
+  if (x == 0)
+    if ( b)
+    a = 1;
+ else
+    b = 2;
+}

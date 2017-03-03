@@ -73,6 +73,7 @@ class Token {
     double getDouble() {return this->dValue;}
 
     void setStr(std::string str);
+    std::string getString() const { return this->str; }
 };
 
 #endif
