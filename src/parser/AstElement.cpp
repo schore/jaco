@@ -56,4 +56,30 @@ bool AstElement::buildFuncSymbolTable(SymbolTable &s) {
   return ret;
 }
 
+bool AstElement::preCompile(SymbolTable &s) {
+  bool ret;
+  ret = this->preEleCompile(s);
+  for(AstElementTree *l : this->leaves) {
+    ret &= l->preCompile(s);
+  }
+  return ret;
+}
+
+bool AstElement::compile(SymbolTable &s) {
+  bool ret;
+  ret = this->eleCompile(s);
+  for(AstElementTree *l : this->leaves) {
+    ret &= l->compile(s);
+  }
+  return ret;
+}
+
+bool AstElement::postCompile(SymbolTable &s) {
+  bool ret;
+  ret = this->postEleCompile(s);
+  for(AstElementTree *l : this->leaves) {
+    ret &= l->postCompile(s);
+  }
+  return ret;
+}
 

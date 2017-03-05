@@ -46,13 +46,22 @@ public:
                                 int ident = 0) = 0;
 
   virtual bool buildEleFuncSymbolTable(SymbolTable &s) { return true; };
+  virtual bool buildFuncSymbolTable(SymbolTable &s) { return true; };
+
+  virtual bool preCompile(SymbolTable &s) { return true; };
+  virtual bool preEleCompile(SymbolTable &s) { return true; };
+
+  virtual bool compile(SymbolTable &s) { return true; };
+  virtual bool eleCompile(SymbolTable &s) { return true; };
+
+  virtual bool postCompile(SymbolTable &s) { return true; };
+  virtual bool postEleCompile(SymbolTable &s) { return true; };
 
   virtual bool addLeave(AstElementTree *t) = 0;
 
   static AstElementTree *createElement(ElementType type);
   static AstElementTree *createElement(Token *tok);
 
-  virtual bool buildFuncSymbolTable(SymbolTable &s) { return true; };
 
   AstElementTree() {};
   virtual ~AstElementTree() {};

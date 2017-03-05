@@ -1,15 +1,19 @@
 #ifndef ELESTMTLIST_H
 #define ELESTMTLIST_H
 
-#include "AstElementTree.h"
+#include "AstElement.h"
 
+class SymbolTable;
 class EleStmtList : public AstElement
 {
 private:
 protected:
 
 public:
-  EleStmtList() : AstElement(AstStmtList) {};
+  bool preEleCompile(SymbolTable &s);
+  bool postEleCompile(SymbolTable &s);
+
+ EleStmtList() : AstElement(AstStmtList) {};
   virtual ~EleStmtList() {};
 };
 

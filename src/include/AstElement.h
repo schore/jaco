@@ -11,7 +11,6 @@ private:
 protected:
   std::vector <AstElementTree *> leaves;
   ElementType type;
-
 public:
   bool addLeave(AstElementTree *leave);
   void print(int ident = 0);
@@ -20,6 +19,9 @@ public:
                                 int ident = 0);
 
   bool buildFuncSymbolTable(SymbolTable &s);
+  bool preCompile(SymbolTable &s);
+  bool compile(SymbolTable &s);
+  bool postCompile(SymbolTable &s);
 
 
   AstElement(ElementType type) : type(type) {};
