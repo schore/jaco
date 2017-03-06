@@ -19,9 +19,7 @@ public:
                                 int ident = 0);
 
   bool buildFuncSymbolTable(SymbolTable &s);
-  bool preCompile(SymbolTable &s);
   bool compile(SymbolTable &s);
-  bool postCompile(SymbolTable &s);
 
 
   AstElement(ElementType type) : type(type) {};

@@ -11,6 +11,7 @@ set(SOURCE
   ${CMAKE_CURRENT_SOURCE_DIR}/parser/customElements/EleFunction.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/parser/customElements/EleStmtList.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/parser/customElements/EleDeclaration.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/parser/customElements/EleExpr.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/symboltable/symbolTable.cpp
-PARENT_SCOPE
+  PARENT_SCOPE
   )
