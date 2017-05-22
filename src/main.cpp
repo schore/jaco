@@ -8,5 +8,5 @@ using namespace std;
 int main() {
   Tokenizer t;
   AstParser p;
-  t.getAllTokens(NULL);
+  p.parseToken(t.getAllTokens(NULL));
 }

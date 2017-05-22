@@ -151,7 +151,6 @@ bool AstParser::expr(int parent, bool newElement) {
 
 bool AstParser::parExpr(int parent, bool newElement) {
   int par = this->addNode(AstParExpr, parent, newElement);
-  int safe = this->index;
   return    this->checkToken(Token_BraceLeft, par)
          && this->expr(par)
          && this->checkToken(Token_BraceRight, par);
@@ -179,7 +178,7 @@ bool AstParser::stmtIf(int parent, bool newElement) {
            &&  this->parExpr(par)
            &&  this->stmt(par)
            &&  this->checkToken(Token_KeywordElse, par)
-           &&  this->stmt(par))
+           &&  this->stmt(par)) // cppcheck-suppress 
          ||   (this->index = safe,
                this->checkToken(Token_KeywordIf, par)
            &&  this->parExpr(par)
@@ -255,8 +254,7 @@ bool AstParser::idList(int parent, bool newElement) {
 
 bool AstParser::func(int parent, bool newElement) {
   int par = this->addNode(AstFunc, parent, newElement);
-  int safe = this->index;
-  bool ret =  this->checkToken(Token_KeywordFunc, par)
+  return      this->checkToken(Token_KeywordFunc, par)
           &&  this->checkToken(Token_Identifier, par)
           &&  this->checkToken(Token_BraceLeft, par)
           &&  this->idList(par)
@@ -274,9 +272,8 @@ bool AstParser::root(int parent, bool newElement) {
 }
 
 void AstParser::cleanTree() {
-  int par;
   for (InputStream &st : this->inpStream) {
-    par = st.parent;
+    int par = st.parent;
     while ( par > 0) {
       this->node[par].used = true;
       par = this->node[par].parent;

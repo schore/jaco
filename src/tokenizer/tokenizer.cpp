@@ -126,19 +126,16 @@ Token *Tokenizer::createOperator(std::ifstream *pFile) {
   char c1,c2;
   Token *t;
   //if not in list there is no endless loop 
-  int weight=1;
   eTokenType opType = Token_Undefined;
 
   pFile->get(c1);
   c2 = pFile->peek();
   for (StringToOperator map: MappingOperators ) {
     if (map.size == 1 && map.str[0] == c1) {
-      weight = 1;
       opType = map.tok;
     }
     else if (map.size == 2 &&
         map.str[0] == c1 && map.str[1] == c2) {
-      weight = 2;
       opType = map.tok;
       pFile->get(c2);
       break;
@@ -289,15 +286,13 @@ Token * Tokenizer::parse(ifstream *pFile) {
 
 vector<Token *> Tokenizer::getAllTokens(ifstream *pFile) {
   vector<Token *>  vectorToken;
-  Token * t;
-  int filePos = -1;
 
   ASSERT(pFile == NULL, vectorToken);
   ASSERT(!pFile->is_open() , vectorToken);
 
   while(!pFile->eof()) {
-    filePos = pFile->tellg();
-    t = this->parse(pFile);
+    auto filePos = pFile->tellg();
+    auto t = this->parse(pFile);
     if (t != NULL) {
       vectorToken.push_back(t);
     }

@@ -21,6 +21,7 @@ if (COMP_DEBUG)
 endif()
 
 include_directories("${PROJECT_SOURCE_DIR}/src/include")
+include_directories("${PROJECT_SOURCE_DIR}/external/GSL/include")
 add_subdirectory(src)
 
 add_executable(compiler ./src/main.cpp)

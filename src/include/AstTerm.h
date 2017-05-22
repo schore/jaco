@@ -2,15 +2,18 @@
 #define ASTTERM_H
 
 #include "AstElementTree.h"
+#include <memory>
+#include <gsl/gsl>
+
 
 class Token;
 class AstTerm : public AstElementTree
 {
 private:
-  Token *pTok;
+  gsl::owner<Token*> pTok = nullptr;
 
 public:
-  const Token *getPTok() const { return this->pTok; };
+  const Token *getPTok() { return this->pTok; };
   bool addLeave(AstElementTree *t) {return false;}
 
 
@@ -19,7 +22,7 @@ public:
                                 int ident = 0);
 
 
-  AstTerm(Token *pTok) : pTok(pTok){};
+  AstTerm(gsl::owner<Token*> pTok) {this->pTok = pTok; };
   virtual ~AstTerm() {};
 };
 
