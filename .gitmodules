@@ -1,3 +1,6 @@
 [submodule "external/GSL"]
 	path = external/GSL
 	url = https://github.com/Microsoft/GSL.git
+[submodule "external/CppCoreGuidelines"]
+	path = external/CppCoreGuidelines
+	url = https://github.com/isocpp/CppCoreGuidelines.git
