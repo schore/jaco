@@ -73,5 +73,19 @@ COMMENT "Generating API documentation with Doxygen" VERBATIM
 )
 endif(DOXYGEN_FOUND)
 
+
 add_custom_target(release)
 add_dependencies(release doc compiler testcode)
+
+add_custom_target(staticAnalysies)
+
+file(GLOB_RECURSE ana "src/*.cpp" "src/*.h")
+foreach(SRCFILE ${ana})
+  add_custom_command(
+    TARGET staticAnalysies
+    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/external/CppCoreGuidelines/scripts/python/cpplint.py
+    ${SRCFILE}
+  )
+endforeach()
+
+#add_dependencies(release staticAnalysies)
