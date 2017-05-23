@@ -3,6 +3,7 @@
 #include "AstElement.h"
 #include "AstTerm.h"
 
+#include <gsl/gsl>
 #include <iostream>
 
 using namespace std;
@@ -300,8 +301,9 @@ void AstParser::buildTree() {
     }
   }
 
-  while (  this->inpStream.size() > j) {
-    AstTerm *t = new AstTerm(this->inpStream[j].tok);
+  while ( this->inpStream.size() > j) {
+    gsl::owner<Token*> tok = this->inpStream[j].tok;
+    AstTerm *t = new AstTerm(tok);
     this->node[this->inpStream[j].parent].el->addLeave(t);
     j++;
   }

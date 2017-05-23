@@ -14,11 +14,11 @@ void AstTerm::print(int ident) {
 }
 
 
-void AstTerm::createTestStruct(vector <AstTestStruct> &output, int ident) {
+void AstTerm::createTestStruct(vector <AstTestStruct> *output, int ident) {
   AstTestStruct t;
   t.isNode = false;
   t.nodes = ident;
   t.type = this->pTok->getType();
-  output.push_back(t);
+  output->push_back(t);
 }
 

@@ -42,7 +42,7 @@ private:
 protected:
 public:
   virtual void print(int ident = 0) = 0;
-  virtual void createTestStruct(std::vector <AstTestStruct> &testOutput,
+  virtual void createTestStruct(std::vector <AstTestStruct> *testOutput,
                                 int ident = 0) = 0;
 
   virtual bool buildEleFuncSymbolTable(SymbolTable &s) { return true; };

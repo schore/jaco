@@ -60,7 +60,7 @@ TEST(Parser, Testfunction) {
 
   vector <AstTestStruct> vec;
 
-  t->createTestStruct(vec);
+  t->createTestStruct(&vec);
   int j = 0;
 
   for (int i = 0; i < vec.size() && j < NELEMENTS(aRes); i++) {

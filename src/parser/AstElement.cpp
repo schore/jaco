@@ -30,13 +30,13 @@ void AstElement::print(int ident) {
 }
 
 
-void AstElement::createTestStruct(vector<AstTestStruct> &output, int ident) {
+void AstElement::createTestStruct(vector<AstTestStruct> *output, int ident) {
   AstTestStruct t;
   t.isNode = true;
   t.nodes = ident;
   t.type = this->type;
 
-  output.push_back(t);
+  output->push_back(t);
 
   for( AstElementTree *e : this->leaves) {
     e->createTestStruct(output, ident+1);

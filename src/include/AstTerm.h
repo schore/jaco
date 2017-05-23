@@ -12,7 +12,7 @@
 class Token;
 class AstTerm : public AstElementTree {
  private:
-  gsl::owner<Token*> pTok = nullptr;
+  gsl::owner<Token*> pTok;
 
  public:
   const Token *getPTok() { return this->pTok; }
@@ -20,7 +20,7 @@ class AstTerm : public AstElementTree {
 
 
   void print(int ident = 0);
-  void createTestStruct(const std::vector <AstTestStruct> &testOutput,
+  void createTestStruct(std::vector <AstTestStruct> *testOutput,
                                 int ident = 0);
 
 
