@@ -1,3 +1,0 @@
-[submodule "external/GSL"]
-	path = external/GSL
-	url = git@github.com:Microsoft/GSL.git
