@@ -1,29 +1,31 @@
-#ifndef ASTTERM_H
-#define ASTTERM_H
+// Copyright 2017 gorg
+#ifndef SRC_INCLUDE_ASTTERM_H_
+#define SRC_INCLUDE_ASTTERM_H_
 
 #include "AstElementTree.h"
-#include <memory>
+
 #include <gsl/gsl>
+#include <memory>
+#include <vector>
 
 
 class Token;
-class AstTerm : public AstElementTree
-{
-private:
+class AstTerm : public AstElementTree {
+ private:
   gsl::owner<Token*> pTok = nullptr;
 
-public:
-  const Token *getPTok() { return this->pTok; };
+ public:
+  const Token *getPTok() { return this->pTok; }
   bool addLeave(AstElementTree *t) {return false;}
 
 
   void print(int ident = 0);
-  void createTestStruct(std::vector <AstTestStruct> &testOutput,
+  void createTestStruct(const std::vector <AstTestStruct> &testOutput,
                                 int ident = 0);
 
 
-  AstTerm(gsl::owner<Token*> pTok) {this->pTok = pTok; };
-  virtual ~AstTerm() {};
+  explicit AstTerm(gsl::owner<Token*> pTok) { this->pTok = pTok; }
+  virtual ~AstTerm() {}
 };
 
-#endif /* ASTTERM_H */
+#endif  // SRC_INCLUDE_ASTTERM_H_
