@@ -1,9 +1,8 @@
+// copyright 2017 gorg
 #include "AstElement.h"
 #include "AstElementTree.h"
 
 #include <iostream>
-
-using namespace std;
 
 bool AstElement::addLeave(AstElementTree *leave) {
   this->leaves.push_back(leave);
@@ -12,25 +11,26 @@ bool AstElement::addLeave(AstElementTree *leave) {
 
 
 void AstElement::print(int ident) {
-  const static char * str[] = {
+  static const char * str[] = {
 #define X(type) #type,
     AST_ELEMENT
 #undef X
   };
 
 
-  for(int i=0; i < ident; i++) cout << "|  ";
-  cout << str[this->type] << endl;
+  for ( auto i = 0; i < ident; i++ ) std::cout << "|  ";
+  std::cout << str[this->type] << std::endl;
 
   ident++;
 
-  for( AstElementTree *e : this->leaves) {
+  for ( AstElementTree *e : this->leaves ) {
     e->print(ident);
   }
 }
 
 
-void AstElement::createTestStruct(vector<AstTestStruct> *output, int ident) {
+void AstElement::createTestStruct(std::vector<AstTestStruct> *output,
+                                  int ident) {
   AstTestStruct t;
   t.isNode = true;
   t.nodes = ident;
@@ -38,18 +38,17 @@ void AstElement::createTestStruct(vector<AstTestStruct> *output, int ident) {
 
   output->push_back(t);
 
-  for( AstElementTree *e : this->leaves) {
+  for ( AstElementTree *e : this->leaves ) {
     e->createTestStruct(output, ident+1);
   }
 }
 
 bool AstElement::buildFuncSymbolTable(SymbolTable &s) {
-
   bool ret;
 
   ret = this->buildEleFuncSymbolTable(s);
 
-  for ( AstElementTree *l : this->leaves) {
+  for ( AstElementTree *l : this->leaves ) {
     ret &= l->buildFuncSymbolTable(s);
   }
 
@@ -61,7 +60,7 @@ bool AstElement::compile(SymbolTable &s) {
   ret = this->preEleCompile(s);
   ret &= this->eleCompile(s);
   ret &= this->postEleCompile(s);
-  for(AstElementTree *l : this->leaves) {
+  for ( AstElementTree *l : this->leaves ) {
     ret &= l->compile(s);
   }
   return ret;

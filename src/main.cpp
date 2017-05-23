@@ -1,9 +1,7 @@
-#include <iostream>
+// copyright 2017 gorg
 
-#include "tokenizer.h"
-#include "AstParser.h"
-
-using namespace std;
+#include <tokenizer.h>
+#include <AstParser.h>
 
 int main() {
   Tokenizer t;

@@ -79,7 +79,7 @@ add_dependencies(release doc compiler testcode)
 
 add_custom_target(staticAnalysies)
 
-file(GLOB_RECURSE ana "src/*.cpp" "src/*.h")
+file(GLOB_RECURSE ana "src/*.h" "src/*.cpp" )
 foreach(SRCFILE ${ana})
   add_custom_command(
     TARGET staticAnalysies
