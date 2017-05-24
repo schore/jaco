@@ -6,7 +6,7 @@
 class EleExpr : public AstElement
 {
 private:
-  bool compile(SymbolTable &s);
+  bool compile(SymbolTable *s);
 public:
   EleExpr() : AstElement(AstExpr) {};
   virtual ~EleExpr() {};

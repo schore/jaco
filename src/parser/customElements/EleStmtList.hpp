@@ -10,8 +10,8 @@ private:
 protected:
 
 public:
-  bool preEleCompile(SymbolTable &s);
-  bool postEleCompile(SymbolTable &s);
+  bool preEleCompile(SymbolTable *s);
+  bool postEleCompile(SymbolTable *s);
 
  EleStmtList() : AstElement(AstStmtList) {};
   virtual ~EleStmtList() {};

@@ -6,7 +6,7 @@
 class EleFunction : public AstElement
 {
 private:
-   bool buildEleFuncSymbolTable(SymbolTable &s);
+   bool buildEleFuncSymbolTable(SymbolTable *s);
 
 public:
   EleFunction() : AstElement(AstFunc) {};

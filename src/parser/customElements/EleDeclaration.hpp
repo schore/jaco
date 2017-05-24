@@ -12,7 +12,7 @@ private:
 
 public:
 
-  bool preEleCompile(SymbolTable &s);
+  bool preEleCompile(SymbolTable *s);
 
   EleDeclaration() : AstElement(AstStmtDeclaration) {};
   virtual ~EleDeclaration() {};

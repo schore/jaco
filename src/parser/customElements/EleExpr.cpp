@@ -1,6 +1,6 @@
 #include "EleExpr.hpp"
 
 
-bool EleExpr::compile(SymbolTable &s) {
+bool EleExpr::compile(SymbolTable *s) {
   return false;
 }
