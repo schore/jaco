@@ -1,15 +1,15 @@
-#ifndef ELEEXPR_H
-#define ELEEXPR_H
+// copyright 2017 gorg
+#ifndef SRC_PARSER_CUSTOMELEMENTS_ELEEXPR_HPP_
+#define SRC_PARSER_CUSTOMELEMENTS_ELEEXPR_HPP_
 
 #include "AstElement.hpp"
 
-class EleExpr : public AstElement
-{
-private:
+class EleExpr : public AstElement {
+ private:
   bool compile(SymbolTable *s);
-public:
-  EleExpr() : AstElement(AstExpr) {};
-  virtual ~EleExpr() {};
+ public:
+  EleExpr() : AstElement(AstExpr) {}
+  virtual ~EleExpr() {}
 };
 
-#endif /* ELEEXPR_H */
+#endif  // SRC_PARSER_CUSTOMELEMENTS_ELEEXPR_HPP_

@@ -1,8 +1,9 @@
 // copyright 2017 gorg
 #include "AstElement.hpp"
-#include "AstElementTree.hpp"
 
 #include <iostream>
+#include "AstElementTree.hpp"
+
 
 bool AstElement::addLeave(AstElementTree *leave) {
   this->leaves.push_back(leave);

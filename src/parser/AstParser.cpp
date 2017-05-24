@@ -1,14 +1,15 @@
+// copyright 2017 gorg
 #include "AstParser.hpp"
-#include "AstElementTree.hpp"
-#include "AstElement.hpp"
-#include "AstTerm.hpp"
 
 #include <gsl/gsl>
 #include <iostream>
 
-using namespace std;
+#include "AstElementTree.hpp"
+#include "AstElement.hpp"
+#include "AstTerm.hpp"
 
-AstParser::AstParser() : index(-1) {};
+
+AstParser::AstParser() : index(-1) {}
 
 bool AstParser::checkToken(eTokenType type, int parent) {
   this->inpStream[this->index].parent = parent;
@@ -49,8 +50,7 @@ bool AstParser::isMultToken(int parent) {
   int safe = this->index;
   return (this->index = safe, this->checkToken(Token_OperatorMultiply, parent))
     ||   (this->index = safe, this->checkToken(Token_OperatorDivide, parent))
-    ||   (this->index = safe, this->checkToken(Token_OperatorModulo, parent))
-          ;
+    ||   (this->index = safe, this->checkToken(Token_OperatorModulo, parent));
 }
 
 
@@ -76,7 +76,6 @@ bool AstParser::primary(int parent, bool newElement) {
       ||    (this->index = safe,
              this->checkToken(Token_OperatorNot, par)
          &&  this->primary(par, false));
-;
 }
 
 
@@ -111,13 +110,13 @@ bool AstParser::addExpr(int parent, bool newElement) {
 bool AstParser::isEqualToken(int parent) {
   int safe = this->index;
 
-  return (this->index = safe, this->checkToken(Token_OperatorEq, parent))
-    ||   (this->index = safe, this->checkToken(Token_OperatorNEq, parent))
-    ||   (this->index = safe, this->checkToken(Token_OperatorSmaller, parent))
-    ||   (this->index = safe, this->checkToken(Token_OperatorSmallerEq, parent))
-    ||   (this->index = safe, this->checkToken(Token_OperatorGreater, parent))
-    ||   (this->index = safe, this->checkToken(Token_OperatorGreaterEq, parent));
-
+  return
+       (this->index = safe, this->checkToken(Token_OperatorEq, parent))
+    || (this->index = safe, this->checkToken(Token_OperatorNEq, parent))
+    || (this->index = safe, this->checkToken(Token_OperatorSmaller, parent))
+    || (this->index = safe, this->checkToken(Token_OperatorSmallerEq, parent))
+    || (this->index = safe, this->checkToken(Token_OperatorGreater, parent))
+    || (this->index = safe, this->checkToken(Token_OperatorGreaterEq, parent));
 }
 
 bool AstParser::eqExpr(int parent, bool newElement) {
@@ -179,7 +178,7 @@ bool AstParser::stmtIf(int parent, bool newElement) {
            &&  this->parExpr(par)
            &&  this->stmt(par)
            &&  this->checkToken(Token_KeywordElse, par)
-           &&  this->stmt(par)) // cppcheck-suppress 
+           &&  this->stmt(par))
          ||   (this->index = safe,
                this->checkToken(Token_KeywordIf, par)
            &&  this->parExpr(par)
@@ -242,12 +241,12 @@ bool AstParser::idList(int parent, bool newElement) {
   int safe = this->index;
 
   return       this->isNextToken(Token_BraceRight)
-         ||(   this->checkToken(Token_Identifier, par)
+         ||   (this->checkToken(Token_Identifier, par)
             && this->isNextToken(Token_BraceRight))
-         ||((  this->index = safe,
+         ||  ((this->index = safe,
                this->checkToken(Token_Identifier, par)
             && this->idList(par, false)))
-         ||((  this->index = safe,
+         ||  ((this->index = safe,
                this->checkToken(Token_Comma, par)
             && this->checkToken(Token_Identifier, par)
             && this->idList(par, false)));
@@ -269,13 +268,12 @@ bool AstParser::root(int parent, bool newElement) {
   return (   this->checkToken(Token_Eof, par)
           || (this->index = safe,
               this->func(par) && this->root(par, false)));
-
 }
 
 void AstParser::cleanTree() {
   for (InputStream &st : this->inpStream) {
     int par = st.parent;
-    while ( par > 0) {
+    while ( par > 0 ) {
       this->node[par].used = true;
       par = this->node[par].parent;
     }
@@ -283,10 +281,10 @@ void AstParser::cleanTree() {
 }
 
 void AstParser::buildTree() {
-  int j = 0;
+  auto j = 0;
 
-  for( int i = 0; i < this->node.size(); i++) {
-    while ( this->inpStream[j].pos <= i && this->inpStream.size() > j) {
+  for (auto i = 0; i < this->node.size(); i++) {
+    while ( this->inpStream[j].pos <= i && this->inpStream.size() > j ) {
       AstElementTree *t = AstElementTree::createElement(this->inpStream[j].tok);
       this->node[this->inpStream[j].parent].el->addLeave(t);
       j++;
@@ -301,7 +299,7 @@ void AstParser::buildTree() {
     }
   }
 
-  while ( this->inpStream.size() > j) {
+  while (this->inpStream.size() > j) {
     gsl::owner<Token*> tok = this->inpStream[j].tok;
     AstTerm *t = new AstTerm(tok);
     this->node[this->inpStream[j].parent].el->addLeave(t);
@@ -309,8 +307,7 @@ void AstParser::buildTree() {
   }
 }
 
-bool AstParser::parseToken(vector <Token *> inStream) {
-
+bool AstParser::parseToken(std::vector <Token *> inStream) {
   for (Token *tok : inStream) {
     InputStream in;
     in.tok = tok;
@@ -322,7 +319,7 @@ bool AstParser::parseToken(vector <Token *> inStream) {
 
   int par = this->addNode(AstEntry, 1, true);
 
-  if(!this->root(par)) return false;
+  if (!this->root(par)) return false;
   this->cleanTree();
   this->buildTree();
 

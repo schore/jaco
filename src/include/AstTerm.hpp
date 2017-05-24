@@ -2,12 +2,11 @@
 #ifndef SRC_INCLUDE_ASTTERM_HPP_
 #define SRC_INCLUDE_ASTTERM_HPP_
 
-#include "AstElementTree.hpp"
-
 #include <gsl/gsl>
 #include <memory>
 #include <vector>
 
+#include "AstElementTree.hpp"
 
 class Token;
 class AstTerm : public AstElementTree {

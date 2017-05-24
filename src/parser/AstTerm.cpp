@@ -1,20 +1,21 @@
+// copyright 2017 gorg
 #include "AstTerm.hpp"
-#include "token.hpp"
 
 #include <iostream>
 
-using namespace std;
+#include "token.hpp"
+
+
 
 void AstTerm::print(int ident) {
+  for (int i = 0; i < ident; i++) std::cout << "|  ";
 
-  for(int i=0; i < ident; i++) cout << "|  ";
-
-  cout << "Term ";
+  std::cout << "Term ";
   this->pTok->printToken();
 }
 
 
-void AstTerm::createTestStruct(vector <AstTestStruct> *output, int ident) {
+void AstTerm::createTestStruct(std::vector <AstTestStruct> *output, int ident) {
   AstTestStruct t;
   t.isNode = false;
   t.nodes = ident;

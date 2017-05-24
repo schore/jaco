@@ -1,9 +1,7 @@
+// copyright 2017 gorg
 #include "token.hpp"
 
 #include <iostream>
-
-using namespace std;
-
 
 void Token::printToken() {
   const char *debugStrings[] = {
@@ -12,7 +10,7 @@ void Token::printToken() {
 #undef X
   };
 
-  cout << debugStrings[this->type] << endl;
+  std::cout << debugStrings[this->type] << std::endl;
 }
 
 Token::Token(eTokenType type) :
@@ -22,6 +20,6 @@ Token::Token(eTokenType type) :
 Token::~Token() {
 }
 
-void Token::setStr(string str) {
+void Token::setStr(std::string str) {
   this->str = str;
 }

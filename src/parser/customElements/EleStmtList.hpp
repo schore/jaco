@@ -1,20 +1,17 @@
-#ifndef ELESTMTLIST_H
-#define ELESTMTLIST_H
+// copyright 2017 gorg
+#ifndef SRC_PARSER_CUSTOMELEMENTS_ELESTMTLIST_HPP_
+#define SRC_PARSER_CUSTOMELEMENTS_ELESTMTLIST_HPP_
 
 #include "AstElement.hpp"
 
 class SymbolTable;
-class EleStmtList : public AstElement
-{
-private:
-protected:
-
-public:
+class EleStmtList : public AstElement {
+ public:
   bool preEleCompile(SymbolTable *s);
   bool postEleCompile(SymbolTable *s);
 
- EleStmtList() : AstElement(AstStmtList) {};
-  virtual ~EleStmtList() {};
+  EleStmtList() : AstElement(AstStmtList) {}
+  virtual ~EleStmtList() {}
 };
 
-#endif /* ELESTMTLIST_H */
+#endif  // SRC_PARSER_CUSTOMELEMENTS_ELESTMTLIST_HPP_

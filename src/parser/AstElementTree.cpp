@@ -1,3 +1,4 @@
+// copyright 2017 gorg
 #include "AstElementTree.hpp"
 #include "AstElement.hpp"
 #include "AstTerm.hpp"
@@ -13,7 +14,7 @@ AstElementTree *AstElementTree::createElement(Token *t) {
 }
 
 AstElementTree *AstElementTree::createElement(ElementType type) {
-  switch(type) {
+  switch (type) {
     case AstFunc:
       return new EleFunction;
     case AstStmt:

@@ -1,23 +1,24 @@
+// copyright 2017 gorg
 #include "EleFunction.hpp"
+
+#include <iostream>
+
 #include "symbolTable.hpp"
 #include "AstTerm.hpp"
 #include "token.hpp"
 
-#include <iostream>
 
-
-using namespace std;
 
 bool EleFunction::buildEleFuncSymbolTable(SymbolTable *symTable) {
-  AstTerm *ident = (AstTerm *)this->leaves[1];
+  AstTerm *ident = reinterpret_cast<AstTerm *>(this->leaves[1]);
   const Token &t = *ident->getPTok();
   Symbol s;
 
   s.str = t.getString();
 
-  if(symTable->findSymbol(s)) return false;
+  if (symTable->findSymbol(s)) return false;
 
-  cout << "Function " << t.getString() << endl;
+  std::cout << "Function " << t.getString() << std::endl;
 
   symTable->pushSymbol(s);
   return true;

@@ -1,27 +1,23 @@
+// copyright 2017 gorg
 #include "symbolTable.hpp"
 #include <string>
 
-using namespace std;
 
-SymbolTable::SymbolTable() {
-
-}
+SymbolTable::SymbolTable() {}
 
 
-SymbolTable::~SymbolTable() {
-}
+SymbolTable::~SymbolTable() {}
 
 
 void SymbolTable::pushSymbol(const Symbol sym) {
-  this->symbolSet.back().insert(sym)  ;
+  this->symbolSet.back().insert(sym);
 }
-
 
 const Symbol *SymbolTable::findSymbol(Symbol sym) {
   Symbol *s = NULL;
   int i;
 
-  for(i = this->symbolSet.size()-1; i >= 0; i--) {
+  for (i = this->symbolSet.size()-1; i >= 0; i--) {
     auto s = this->symbolSet[i].find(sym);
     if (s != this->symbolSet[i].end())
       return &*s;
@@ -41,7 +37,7 @@ bool SymbolTable::popSymbol(Symbol sym) {
 }
 
 bool SymbolTable::enterScope() {
-  set<Symbol> s;
+  std::set<Symbol> s;
   this->symbolSet.push_back(s);
   return true;
 }

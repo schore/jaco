@@ -2,8 +2,8 @@
 #ifndef SRC_INCLUDE_ASTELEMENT_HPP_
 #define SRC_INCLUDE_ASTELEMENT_HPP_
 
-#include "AstElementTree.hpp"
 #include <vector>
+#include "AstElementTree.hpp"
 
 class SymbolTable;
 class AstElement : public AstElementTree {
