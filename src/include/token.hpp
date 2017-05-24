@@ -1,5 +1,6 @@
-#ifndef TOKEN_H_
-#define TOKEN_H_
+// copyright 2017 gorg
+#ifndef SRC_INCLUDE_TOKEN_HPP_
+#define SRC_INCLUDE_TOKEN_HPP_
 
 #include <vector>
 #include <string>
@@ -58,22 +59,22 @@ class Token {
 
     std::string str;
 
-  public:
-    Token(eTokenType type);
+ public:
+    explicit Token(eTokenType type);
     virtual ~Token();
 
-    eTokenType getType() {return this->type;};
+    eTokenType getType() { return this->type; }
 
     void printToken();
 
     void setInt(int intValue) { this->intValue = intValue; }
     int getInt() { return this->intValue; }
 
-    void setDouble( double dValue) { this->dValue = dValue; }
+    void setDouble(double dValue) { this->dValue = dValue; }
     double getDouble() {return this->dValue;}
 
     void setStr(std::string str);
     std::string getString() const { return this->str; }
 };
 
-#endif
+#endif  // SRC_INCLUDE_TOKEN_HPP_

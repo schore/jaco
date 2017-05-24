@@ -1,7 +1,7 @@
-#include "AstParser.h"
-#include "AstElementTree.h"
-#include "AstElement.h"
-#include "AstTerm.h"
+#include "AstParser.hpp"
+#include "AstElementTree.hpp"
+#include "AstElement.hpp"
+#include "AstTerm.hpp"
 
 #include <gsl/gsl>
 #include <iostream>

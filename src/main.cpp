@@ -1,7 +1,7 @@
 // copyright 2017 gorg
 
-#include <tokenizer.h>
-#include <AstParser.h>
+#include <tokenizer.hpp>
+#include <AstParser.hpp>
 
 int main() {
   Tokenizer t;

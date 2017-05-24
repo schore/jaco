@@ -1,12 +1,12 @@
-#include "AstElementTree.h"
-#include "AstElement.h"
-#include "AstTerm.h"
+#include "AstElementTree.hpp"
+#include "AstElement.hpp"
+#include "AstTerm.hpp"
 
-#include "customElements/EleFunction.h"
-#include "customElements/EleStmt.h"
-#include "customElements/EleStmtList.h"
-#include "customElements/EleDeclaration.h"
-#include "customElements/EleExpr.h"
+#include "customElements/EleFunction.hpp"
+#include "customElements/EleStmt.hpp"
+#include "customElements/EleStmtList.hpp"
+#include "customElements/EleDeclaration.hpp"
+#include "customElements/EleExpr.hpp"
 
 AstElementTree *AstElementTree::createElement(Token *t) {
   return new AstTerm(t);

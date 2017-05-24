@@ -3,9 +3,9 @@
 #include <fstream>
 #include <iostream>
 
-#include "tokenizer.h"
-#include "token.h"
-#include "utility.h"
+#include "tokenizer.hpp"
+#include "token.hpp"
+#include "utility.hpp"
 
 using ::testing::Return;
 using namespace std;

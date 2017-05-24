@@ -1,8 +1,8 @@
-#include "EleDeclaration.h"
+#include "EleDeclaration.hpp"
 
-#include "token.h"
-#include "symbolTable.h"
-#include "AstTerm.h"
+#include "token.hpp"
+#include "symbolTable.hpp"
+#include "AstTerm.hpp"
 
 #include "debug_helper.h"
 

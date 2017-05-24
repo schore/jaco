@@ -1,8 +1,8 @@
 // Copyright 2017 gorg
-#ifndef SRC_INCLUDE_ASTTERM_H_
-#define SRC_INCLUDE_ASTTERM_H_
+#ifndef SRC_INCLUDE_ASTTERM_HPP_
+#define SRC_INCLUDE_ASTTERM_HPP_
 
-#include "AstElementTree.h"
+#include "AstElementTree.hpp"
 
 #include <gsl/gsl>
 #include <memory>
@@ -28,4 +28,4 @@ class AstTerm : public AstElementTree {
   virtual ~AstTerm() {}
 };
 
-#endif  // SRC_INCLUDE_ASTTERM_H_
+#endif  // SRC_INCLUDE_ASTTERM_HPP_

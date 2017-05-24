@@ -1,7 +1,7 @@
-#include "EleFunction.h"
-#include "symbolTable.h"
-#include "AstTerm.h"
-#include "token.h"
+#include "EleFunction.hpp"
+#include "symbolTable.hpp"
+#include "AstTerm.hpp"
+#include "token.hpp"
 
 #include <iostream>
 

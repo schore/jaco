@@ -1,7 +1,7 @@
 #ifndef ELEFUNCTION_H
 #define ELEFUNCTION_H
 
-#include "AstElement.h"
+#include "AstElement.hpp"
 
 class EleFunction : public AstElement
 {

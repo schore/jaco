@@ -1,6 +1,6 @@
 // copyright 2017 gorg
-#include "AstElement.h"
-#include "AstElementTree.h"
+#include "AstElement.hpp"
+#include "AstElementTree.hpp"
 
 #include <iostream>
 
@@ -43,7 +43,7 @@ void AstElement::createTestStruct(std::vector<AstTestStruct> *output,
   }
 }
 
-bool AstElement::buildFuncSymbolTable(SymbolTable &s) {
+bool AstElement::buildFuncSymbolTable(SymbolTable *s) {
   bool ret;
 
   ret = this->buildEleFuncSymbolTable(s);
@@ -55,7 +55,7 @@ bool AstElement::buildFuncSymbolTable(SymbolTable &s) {
   return ret;
 }
 
-bool AstElement::compile(SymbolTable &s) {
+bool AstElement::compile(SymbolTable *s) {
   bool ret;
   ret = this->preEleCompile(s);
   ret &= this->eleCompile(s);

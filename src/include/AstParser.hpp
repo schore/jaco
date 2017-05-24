@@ -1,15 +1,15 @@
-#ifndef ASTPARSER_H
-#define ASTPARSER_H
+// copyright 2017 gorg
+#ifndef SRC_INCLUDE_ASTPARSER_HPP_
+#define SRC_INCLUDE_ASTPARSER_HPP_
 
 #include <vector>
-#include "token.h"
-#include "AstElement.h"
+#include <token.hpp>
+#include <AstElement.hpp>
 
 class Token;
-class AstParser
-{
+class AstParser {
   class Element {
-    public:
+   public:
       ElementType type;
       int parent;
       bool used;
@@ -17,13 +17,13 @@ class AstParser
   };
 
   class InputStream {
-    public:
+   public:
       Token *tok;
       int parent;
       int pos;
   };
 
-private:
+ private:
   std::vector <Element> node;
   std::vector <InputStream> inpStream;
 
@@ -63,13 +63,14 @@ private:
 
   void cleanTree();
   void buildTree();
-public:
+
+ public:
   bool parseToken(std::vector <Token*> inStream);
 
   AstElementTree *getRootNode();
 
   AstParser();
-  virtual ~AstParser() {};
+  virtual ~AstParser() {}
 };
 
-#endif /* ASTPARSER_H */
+#endif  // SRC_INCLUDE_ASTPARSER_HPP_

@@ -1,7 +1,7 @@
 #ifndef ELEDECLARATION_H
 #define ELEDECLARATION_H
 
-#include "AstElement.h"
+#include "AstElement.hpp"
 
 
 class SymbolTable;

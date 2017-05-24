@@ -3,7 +3,7 @@
 #include <fstream>
 #include <iostream>
 
-#include "symbolTable.h"
+#include "symbolTable.hpp"
 
 using ::testing::Return;
 using namespace std;

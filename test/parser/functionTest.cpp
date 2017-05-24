@@ -3,13 +3,13 @@
 #include <fstream>
 #include <iostream>
 
-#include "tokenizer.h"
-#include "AstParser.h"
-#include "AstElementTree.h"
-#include "AstElement.h"
-#include "AstTerm.h"
-#include "utility.h"
-#include "symbolTable.h"
+#include "tokenizer.hpp"
+#include "AstParser.hpp"
+#include "AstElementTree.hpp"
+#include "AstElement.hpp"
+#include "AstTerm.hpp"
+#include "utility.hpp"
+#include "symbolTable.hpp"
 
 using ::testing::Return;
 using namespace std;
@@ -92,5 +92,5 @@ TEST(SymbolTable, Testfunction) {
   EXPECT_TRUE(succes);
 
   AstElementTree *t = pars.getRootNode();
-  t->buildEleFuncSymbolTable(s);
+  t->buildEleFuncSymbolTable(&s);
 }

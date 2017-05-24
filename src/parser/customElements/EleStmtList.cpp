@@ -1,6 +1,6 @@
-#include "EleStmtList.h"
+#include "EleStmtList.hpp"
 
-#include "symbolTable.h"
+#include "symbolTable.hpp"
 
 bool EleStmtList::preEleCompile(SymbolTable &s) {
   return s.enterScope();

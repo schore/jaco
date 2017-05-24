@@ -1,4 +1,4 @@
-#include "symbolTable.h"
+#include "symbolTable.hpp"
 #include <string>
 
 using namespace std;

@@ -1,5 +1,5 @@
-#include "AstTerm.h"
-#include "token.h"
+#include "AstTerm.hpp"
+#include "token.hpp"
 
 #include <iostream>
 

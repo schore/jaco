@@ -1,9 +1,9 @@
-#include "tokenizer.h"
+#include "tokenizer.hpp"
 
 #include "debug_helper.h"
 
-#include "token.h"
-#include "utility.h"
+#include "token.hpp"
+#include "utility.hpp"
 
 #include <string>
 
