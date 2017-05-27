@@ -15,7 +15,7 @@ class AstElement : public AstElementTree {
   bool addLeave(AstElementTree *leave);
   void print(int ident = 0);
 
-  void createTestStruct(std::vector <AstTestStruct> *testOutput,
+  void createTestStruct(std::vector <AstTestStruct> *output,
                                 int ident = 0);
 
   bool buildFuncSymbolTable(SymbolTable *s);

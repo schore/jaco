@@ -87,16 +87,24 @@ foreach(SRCFILE ${ana2})
     ${SRCFILE}
     -header-filter=.*,-${CMAKE_CURRENT_SOURCE_DIR}/external/GSL/include/*
     -warnings-as-errors=* 
-    -checks=-*,cppcoreguidelines* 
+    -checks=-*,cppcoreguidelines*,clang-analyzer*
     -- 
     -I${CMAKE_CURRENT_SOURCE_DIR}/src/include/
     -I${CMAKE_CURRENT_SOURCE_DIR}/external/GSL/include/
-    -std=c++14
+    -std=c++14    
+    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/external/CppCoreGuidelines/scripts/python/cpplint.py
+    ${SRCFILE}
+
+    COMMAND clang-check ${SRCFILE} -analyze
+    --
+    -I${CMAKE_CURRENT_SOURCE_DIR}/src/include/
+    -I${CMAKE_CURRENT_SOURCE_DIR}/external/GSL/include/
+    -std=c++14    
   )
 endforeach()
 
 
-file(GLOB_RECURSE ana "src/*.hpp" "src/*.cpp" )
+file(GLOB_RECURSE ana "src/*.hpp" )
 foreach(SRCFILE ${ana})
   add_custom_command(
     TARGET staticAnalysies
