@@ -6,9 +6,6 @@
 SymbolTable::SymbolTable() {}
 
 
-SymbolTable::~SymbolTable() {}
-
-
 void SymbolTable::pushSymbol(const Symbol sym) {
   this->symbolSet.back().insert(sym);
 }

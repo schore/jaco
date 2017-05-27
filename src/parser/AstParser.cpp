@@ -24,10 +24,11 @@ bool AstParser::isNextToken(eTokenType type) {
 }
 
 int AstParser::addNode(ElementType type, int par, bool newElement) {
-  Element e;
-  e.type = type;
-  e.parent = par;
-  e.used = false;
+  Element e = {
+  .type = type,
+  .parent = par,
+  .used = false,
+  };
 
   if (!newElement) return par;
 
@@ -309,8 +310,9 @@ void AstParser::buildTree() {
 
 bool AstParser::parseToken(std::vector <Token *> inStream) {
   for (Token *tok : inStream) {
-    InputStream in;
-    in.tok = tok;
+    InputStream in = {
+      .tok = tok,
+    };
 
     this->inpStream.push_back(in);
   }

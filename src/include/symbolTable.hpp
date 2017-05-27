@@ -24,7 +24,6 @@ class SymbolTable {
 
  public:
   SymbolTable();
-  virtual ~SymbolTable();
 
   void pushSymbol(const Symbol sym);
   bool popSymbol(Symbol sym);

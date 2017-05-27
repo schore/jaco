@@ -10,7 +10,7 @@
 
 
 bool EleFunction::buildEleFuncSymbolTable(SymbolTable *symTable) {
-  AstTerm *ident = reinterpret_cast<AstTerm *>(this->leaves[1]);
+  AstTerm *ident = dynamic_cast<AstTerm *>(this->leaves[1]);
   const Token &t = *ident->getPTok();
   Symbol s;
 

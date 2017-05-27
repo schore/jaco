@@ -23,7 +23,6 @@ class AstElement : public AstElementTree {
 
 
   explicit AstElement(ElementType type) : type(type) {}
-  virtual ~AstElement() {}
 };
 
 #endif  // SRC_INCLUDE_ASTELEMENT_HPP_

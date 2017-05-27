@@ -61,7 +61,6 @@ class Token {
 
  public:
     explicit Token(eTokenType type);
-    virtual ~Token();
 
     eTokenType getType() { return this->type; }
 

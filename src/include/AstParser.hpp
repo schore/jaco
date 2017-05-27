@@ -27,8 +27,8 @@ class AstParser {
   std::vector <Element> node;
   std::vector <InputStream> inpStream;
 
-  int index;
-  int parentIndex;
+  int index = -1;
+  int parentIndex = 0;
 
   int addNode(ElementType type, int par, bool newElement);
 
@@ -70,7 +70,6 @@ class AstParser {
   AstElementTree *getRootNode();
 
   AstParser();
-  virtual ~AstParser() {}
 };
 
 #endif  // SRC_INCLUDE_ASTPARSER_HPP_

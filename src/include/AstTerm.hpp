@@ -24,7 +24,6 @@ class AstTerm : public AstElementTree {
 
 
   explicit AstTerm(gsl::owner<Token*> pTok) { this->pTok = pTok; }
-  virtual ~AstTerm() {}
 };
 
 #endif  // SRC_INCLUDE_ASTTERM_HPP_

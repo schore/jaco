@@ -79,6 +79,23 @@ add_dependencies(release doc compiler testcode)
 
 add_custom_target(staticAnalysies)
 
+file(GLOB_RECURSE ana2 "src/*.cpp" )
+foreach(SRCFILE ${ana2})
+  add_custom_command(
+    TARGET staticAnalysies
+    COMMAND  clang-tidy  
+    ${SRCFILE}
+    -header-filter=.*,-${CMAKE_CURRENT_SOURCE_DIR}/external/GSL/include/*
+    -warnings-as-errors=* 
+    -checks=-*,cppcoreguidelines* 
+    -- 
+    -I${CMAKE_CURRENT_SOURCE_DIR}/src/include/
+    -I${CMAKE_CURRENT_SOURCE_DIR}/external/GSL/include/
+    -std=c++14
+  )
+endforeach()
+
+
 file(GLOB_RECURSE ana "src/*.hpp" "src/*.cpp" )
 foreach(SRCFILE ${ana})
   add_custom_command(
@@ -87,5 +104,6 @@ foreach(SRCFILE ${ana})
     ${SRCFILE}
   )
 endforeach()
+
 
 #add_dependencies(release staticAnalysies)

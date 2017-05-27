@@ -9,7 +9,7 @@
 
 
 bool EleDeclaration::preEleCompile(SymbolTable *s) {
-  const Token *iden = reinterpret_cast<AstTerm*>(this->leaves[1])->getPTok();
+  const Token *iden = dynamic_cast<AstTerm*>(this->leaves[1])->getPTok();
   Symbol sym;
   sym.str = iden->getString();
 

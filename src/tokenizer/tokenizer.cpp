@@ -9,13 +9,13 @@
 
 
 struct StringToOperator {
-  const char* str;
+  std::string str;
   int size;
   eTokenType tok;
 };
 
 struct StringToKeyword {
-  const char* str;
+  std::string str;
   int size;
   eTokenType type;
 };

@@ -60,7 +60,6 @@ class AstElementTree {
 
 
   AstElementTree() {}
-  virtual ~AstElementTree() {}
 };
 
 #endif  // SRC_INCLUDE_ASTELEMENTTREE_HPP_

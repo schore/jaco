@@ -16,10 +16,11 @@ void AstTerm::print(int ident) {
 
 
 void AstTerm::createTestStruct(std::vector <AstTestStruct> *output, int ident) {
-  AstTestStruct t;
+  AstTestStruct t = {};
   t.isNode = false;
-  t.nodes = ident;
   t.type = this->pTok->getType();
+  t.nodes = ident;
+
   output->push_back(t);
 }
 

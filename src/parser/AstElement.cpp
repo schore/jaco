@@ -2,6 +2,8 @@
 #include "AstElement.hpp"
 
 #include <iostream>
+#include <vector>
+#include <string>
 #include "AstElementTree.hpp"
 
 
@@ -12,7 +14,7 @@ bool AstElement::addLeave(AstElementTree *leave) {
 
 
 void AstElement::print(int ident) {
-  static const char * str[] = {
+  const std::vector<std::string> str = {
 #define X(type) #type,
     AST_ELEMENT
 #undef X
@@ -32,10 +34,11 @@ void AstElement::print(int ident) {
 
 void AstElement::createTestStruct(std::vector<AstTestStruct> *output,
                                   int ident) {
-  AstTestStruct t;
-  t.isNode = true;
-  t.nodes = ident;
-  t.type = this->type;
+  AstTestStruct t = {
+    ident,
+    this->type,
+    true,
+  };
 
   output->push_back(t);
 
