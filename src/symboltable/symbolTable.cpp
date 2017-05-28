@@ -11,7 +11,6 @@ void SymbolTable::pushSymbol(const Symbol sym) {
 }
 
 const Symbol *SymbolTable::findSymbol(Symbol sym) {
-  Symbol *s = NULL;
   int i;
 
   for (i = this->symbolSet.size()-1; i >= 0; i--) {

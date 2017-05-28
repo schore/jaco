@@ -122,7 +122,6 @@ void Tokenizer::removeSpace(std::ifstream *pFile) {
 
 Token *Tokenizer::createOperator(std::ifstream *pFile) {
   char c1, c2;
-  Token *t;
   // if not in list there is no endless loop
   eTokenType opType = Token_Undefined;
 
@@ -279,7 +278,6 @@ std::vector<Token *> Tokenizer::getAllTokens(std::ifstream *pFile) {
   ASSERT(!pFile->is_open() , vectorToken);
 
   while (!pFile->eof()) {
-    auto filePos = pFile->tellg();
     auto t = this->parse(pFile);
     if (t != NULL) {
       vectorToken.push_back(t);

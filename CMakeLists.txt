@@ -10,6 +10,8 @@ set (Compiler_Version_Minor 0)
 option (COMP_DEBUG "Debug Mode on" ON)
 option (BUILD_TEST "Build Testing" ON)
 
+set (CMAKE_CXX_FLAGS "-Wall")
+
 #generate header file
 configure_file (
   "${PROJECT_SOURCE_DIR}/src/include/global_config.h.in"
@@ -100,6 +102,8 @@ foreach(SRCFILE ${ana2})
     -I${CMAKE_CURRENT_SOURCE_DIR}/src/include/
     -I${CMAKE_CURRENT_SOURCE_DIR}/external/GSL/include/
     -std=c++14    
+
+    COMMAND cppcheck ${SRCFILE}
   )
 endforeach()
 

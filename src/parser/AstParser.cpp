@@ -282,10 +282,11 @@ void AstParser::cleanTree() {
 }
 
 void AstParser::buildTree() {
-  auto j = 0;
+  unsigned int j = 0;
 
-  for (auto i = 0; i < this->node.size(); i++) {
-    while ( this->inpStream[j].pos <= i && this->inpStream.size() > j ) {
+  for (unsigned int i = 0; i < this->node.size(); i++) {
+    while ( this->inpStream[j].pos <= static_cast<signed int>(i)
+        && this->inpStream.size() > j ) {
       AstElementTree *t = AstElementTree::createElement(this->inpStream[j].tok);
       this->node[this->inpStream[j].parent].el->addLeave(t);
       j++;
