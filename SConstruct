@@ -1,9 +1,5 @@
 env = Environment()
+Export('env')
 
-env.Append(CPPPATH=['src/include'])
 
-src = [
- 'src/main.cpp'
-]
-
-env.Program( 'main' , src)
+SConscript('src/SConscript', variant_dir='build')
