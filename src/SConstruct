@@ -1,0 +1,17 @@
+import glob
+import os
+import os.path
+
+
+env = Environment()
+env.Append(CPPPATH=['src/include', 'external/GSL/include'])
+
+src = []
+
+for dirpath, dirnames, filenames in os.walk("parser"):
+    for filename in [f for f in filenames if f.endswith(".cpp")]:
+        src += [dirpath +  '/' + filename]
+
+print(src)
+
+env.Program('parser', src)
