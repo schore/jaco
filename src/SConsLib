@@ -8,7 +8,6 @@ Import('env')
 localEnv = env.Clone()
 localEnv.Append(CPPPATH=['./include', '../external/GSL/include'])
 
-os.system('pwd')
 src = glob.glob('../src/*/*.cpp')
 src += glob.glob('../src/*/*/*.cpp')
 
@@ -16,5 +15,4 @@ print(src)
 
 
 localEnv.Library('compiler', src)
-localEnv.Program('jaco', ['main.cpp'], LIBS='compiler', LIBPATH='.', variant_dir='build')
 

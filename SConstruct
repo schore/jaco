@@ -1,4 +1,5 @@
 env = Environment()
+#env.VariantDir('build/', 'src/')
 Export('env')
 
 
