@@ -10,6 +10,7 @@ localEnv.Append(CPPPATH=['./include', '../external/GSL/include'])
 
 os.system('pwd')
 src = glob.glob('../src/*/*.cpp')
+src += glob.glob('../src/*/*/*.cpp')
 
 print(src)
 
