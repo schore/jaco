@@ -3,6 +3,7 @@ project(compiler)
 #Version Number
 set (Compiler_Version_Major 0)
 set (Compiler_Version_Minor 0)
+set( CMAKE_EXPORT_COMPILE_COMMANDS ON )
 
 
 #Global Options
