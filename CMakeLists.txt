@@ -39,6 +39,8 @@ add_library(compilerLib ${SOURCE})
 #add_test (TutorialRuns tutorial 25)
 find_package(GTest REQUIRED)
 enable_testing()
+include(CTest)
+set(BUILD_TESTING On)
 include_directories(${GTEST_INCLUDE_DIRS})
 
 add_custom_target(testcode)
@@ -51,7 +53,9 @@ macro(Mytest testname src)
     target_link_libraries(${testname} ${GTEST_BOTH_LIBRARIES})
     target_link_libraries(${testname} compilerLib)
     add_dependencies(testcode  ${testname}) 
-    add_test(${testname} ${testname})
+    add_custom_command(TARGET ${testname}
+      POST_BUILD
+      COMMAND ${testname})
   endif()
 endmacro(Mytest)
 
@@ -64,6 +68,8 @@ Mytest(ParserFunc "test/parser/functionTest.cpp")
 Mytest(SymbolTable "test/symboltable.cpp")
 Mytest(FunctionElement "test/parser/functionCustomElement.cpp")
 
+add_custom_target(check)
+add_dependencies(check testcode )
 
 # add a target to generate API documentation with Doxygen
 find_package(Doxygen)
