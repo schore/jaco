@@ -5,6 +5,9 @@ set (Compiler_Version_Major 0)
 set (Compiler_Version_Minor 0)
 set( CMAKE_EXPORT_COMPILE_COMMANDS ON )
 
+set( CMAKE_C_COMPILER "/usr/bin/clang")
+set( CMAKE_CXX_COMPILER "/usr/bin/clang++")
+
 
 #Global Options
 
