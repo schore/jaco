@@ -1,10 +1,10 @@
-#include <gtest/gtest.h>
-#include <gmock/gmock.h>
 #include <fstream>
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 #include <iostream>
 
-#include "tokenizer.hpp"
 #include "token.hpp"
+#include "tokenizer.hpp"
 #include "utility.hpp"
 
 using ::testing::Return;
@@ -16,8 +16,8 @@ TEST(TokenDouble, readIn) {
   ifstream myFile;
   int i = 0;
 
-  double expectedDouble[] =
-  {676544.58432, 9.12345, 1.1, 3.5, 0.12345, 676544.584329};
+  double expectedDouble[] = {676544.58432, 9.12345, 1.1,
+                             3.5,          0.12345, 676544.584329};
 
   myFile.open("../test/code/testdouble.code");
 
@@ -25,13 +25,13 @@ TEST(TokenDouble, readIn) {
   allToken.pop_back();
 
   for (Token *n : allToken) {
-    EXPECT_EQ( n->getType(), Token_Double);
+    EXPECT_EQ(n->getType(), Token_Double);
 
-    EXPECT_DOUBLE_EQ( n->getDouble(), expectedDouble[i]);
+    EXPECT_DOUBLE_EQ(n->getDouble(), expectedDouble[i]);
     i++;
   }
 
-  EXPECT_EQ( allToken.size(), NELEMENTS(expectedDouble));
+  EXPECT_EQ(allToken.size(), NELEMENTS(expectedDouble));
 }
 
 TEST(TokenDouble, SpecialChars) {
@@ -40,8 +40,8 @@ TEST(TokenDouble, SpecialChars) {
   ifstream myFile;
   int i = 0;
 
-  double expectedDouble[] =
-  {676544.58432, 9.12345, 1.1, 3.5, 0.12345, 676544.584329, 5.1};
+  double expectedDouble[] = {676544.58432, 9.12345,       1.1, 3.5,
+                             0.12345,      676544.584329, 5.1};
 
   myFile.open("../test/code/testdoublewithchar.code");
 
@@ -49,11 +49,10 @@ TEST(TokenDouble, SpecialChars) {
 
   for (Token *n : allToken) {
     if (n->getType() == Token_Double) {
-      EXPECT_DOUBLE_EQ( n->getDouble(), expectedDouble[i]);
+      EXPECT_DOUBLE_EQ(n->getDouble(), expectedDouble[i]);
       i++;
     }
   }
 
-  EXPECT_EQ( i, NELEMENTS(expectedDouble));
-
+  EXPECT_EQ(i, NELEMENTS(expectedDouble));
 }

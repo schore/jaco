@@ -2,27 +2,26 @@
 #ifndef SRC_INCLUDE_ASTELEMENT_HPP_
 #define SRC_INCLUDE_ASTELEMENT_HPP_
 
-#include <vector>
 #include "AstElementTree.hpp"
+#include <vector>
 
 class SymbolTable;
 class AstElement : public AstElementTree {
- private:
- protected:
-  std::vector <AstElementTree *> leaves;
+private:
+protected:
+  std::vector<AstElementTree *> leaves;
   ElementType type;
- public:
+
+public:
   bool addLeave(AstElementTree *leave);
   void print(int ident = 0);
 
-  void createTestStruct(std::vector <AstTestStruct> *output,
-                                int ident = 0);
+  void createTestStruct(std::vector<AstTestStruct> *output, int ident = 0);
 
   bool buildFuncSymbolTable(SymbolTable *s);
   bool compile(SymbolTable *s);
 
-
   explicit AstElement(ElementType type) : type(type) {}
 };
 
-#endif  // SRC_INCLUDE_ASTELEMENT_HPP_
+#endif // SRC_INCLUDE_ASTELEMENT_HPP_

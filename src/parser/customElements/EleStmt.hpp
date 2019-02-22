@@ -5,9 +5,9 @@
 #include "AstElement.hpp"
 
 class EleStmt : public AstElement {
- public:
+public:
   EleStmt() : AstElement(AstStmt) {}
   virtual ~EleStmt() {}
 };
 
-#endif  // SRC_PARSER_CUSTOMELEMENTS_ELESTMT_HPP_
+#endif // SRC_PARSER_CUSTOMELEMENTS_ELESTMT_HPP_

@@ -4,14 +4,13 @@
 
 #include "AstElement.hpp"
 
-
 class SymbolTable;
 class EleDeclaration : public AstElement {
- public:
+public:
   bool preEleCompile(SymbolTable *s);
 
   EleDeclaration() : AstElement(AstStmtDeclaration) {}
   virtual ~EleDeclaration() {}
 };
 
-#endif  // SRC_PARSER_CUSTOMELEMENTS_ELEDECLARATION_HPP_
+#endif // SRC_PARSER_CUSTOMELEMENTS_ELEDECLARATION_HPP_

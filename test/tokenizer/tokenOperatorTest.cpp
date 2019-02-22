@@ -1,10 +1,10 @@
-#include <gtest/gtest.h>
-#include <gmock/gmock.h>
 #include <fstream>
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 #include <iostream>
 
-#include "tokenizer.hpp"
 #include "token.hpp"
+#include "tokenizer.hpp"
 #include "utility.hpp"
 
 using ::testing::Return;
@@ -17,41 +17,29 @@ TEST(TokenOperator, readIn) {
   int i = 0;
 
   eTokenType expectedType[] = {
-    Token_OperatorSmallerEq,
-    Token_OperatorPlus,
-    Token_OperatorMinus,
-    Token_OperatorDivide,
-    Token_OperatorMultiply,
-    Token_OperatorAssign,
-    Token_OperatorEq,
-    Token_OperatorNEq,
-    Token_OperatorSmallerEq,
-    Token_OperatorGreaterEq,
-    Token_OperatorGreater,
-    Token_OperatorSmaller,
-    Token_OperatorLogicAnd,
-    Token_OperatorLogicOr,
-    Token_OperatorOr,
-    Token_OperatorAnd,
-    Token_OperatorShiftLeft,
-    Token_OperatorShiftRight,
-    Token_OperatorModulo,
-    Token_Eof,
+      Token_OperatorSmallerEq, Token_OperatorPlus,
+      Token_OperatorMinus,     Token_OperatorDivide,
+      Token_OperatorMultiply,  Token_OperatorAssign,
+      Token_OperatorEq,        Token_OperatorNEq,
+      Token_OperatorSmallerEq, Token_OperatorGreaterEq,
+      Token_OperatorGreater,   Token_OperatorSmaller,
+      Token_OperatorLogicAnd,  Token_OperatorLogicOr,
+      Token_OperatorOr,        Token_OperatorAnd,
+      Token_OperatorShiftLeft, Token_OperatorShiftRight,
+      Token_OperatorModulo,    Token_Eof,
   };
-
 
   myFile.open("../test/code/tokenOperatorTest.code");
 
   allToken = tok.getAllTokens(&myFile);
 
   for (Token *n : allToken) {
-    EXPECT_EQ( n->getType(), expectedType[i]);
+    EXPECT_EQ(n->getType(), expectedType[i]);
     i++;
   }
 
-  EXPECT_EQ( allToken.size(), NELEMENTS(expectedType));
+  EXPECT_EQ(allToken.size(), NELEMENTS(expectedType));
 }
-
 
 TEST(TokenOperator, readInWithChars) {
   Tokenizer tok;
@@ -60,27 +48,17 @@ TEST(TokenOperator, readInWithChars) {
   int i = 0;
 
   eTokenType expectedType[] = {
-    Token_OperatorSmallerEq,
-    Token_OperatorPlus,
-    Token_OperatorMinus,
-    Token_OperatorDivide,
-    Token_OperatorMultiply,
-    Token_OperatorAssign,
-    Token_OperatorEq,
-    Token_OperatorNEq,
-    Token_OperatorSmallerEq,
-    Token_OperatorGreaterEq,
-    Token_OperatorGreater,
-    Token_OperatorSmaller,
-    Token_OperatorLogicAnd,
-    Token_OperatorLogicOr,
-    Token_OperatorOr,
-    Token_OperatorAnd,
-    Token_OperatorShiftLeft,
-    Token_OperatorShiftRight,
-    Token_OperatorModulo,
+      Token_OperatorSmallerEq, Token_OperatorPlus,
+      Token_OperatorMinus,     Token_OperatorDivide,
+      Token_OperatorMultiply,  Token_OperatorAssign,
+      Token_OperatorEq,        Token_OperatorNEq,
+      Token_OperatorSmallerEq, Token_OperatorGreaterEq,
+      Token_OperatorGreater,   Token_OperatorSmaller,
+      Token_OperatorLogicAnd,  Token_OperatorLogicOr,
+      Token_OperatorOr,        Token_OperatorAnd,
+      Token_OperatorShiftLeft, Token_OperatorShiftRight,
+      Token_OperatorModulo,
   };
-
 
   myFile.open("../test/code/tokenOperatorTestChars.code");
 
@@ -88,12 +66,12 @@ TEST(TokenOperator, readInWithChars) {
 
   for (Token *n : allToken) {
 
-    if (n->getType() >= Token_OperatorPlus
-        && n->getType() <= Token_OperatorModulo) {
-      EXPECT_EQ( n->getType(), expectedType[i]);
+    if (n->getType() >= Token_OperatorPlus &&
+        n->getType() <= Token_OperatorModulo) {
+      EXPECT_EQ(n->getType(), expectedType[i]);
       i++;
     }
   }
 
-  EXPECT_EQ( i, NELEMENTS(expectedType));
+  EXPECT_EQ(i, NELEMENTS(expectedType));
 }

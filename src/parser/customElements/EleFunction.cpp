@@ -3,11 +3,9 @@
 
 #include <iostream>
 
-#include "symbolTable.hpp"
 #include "AstTerm.hpp"
+#include "symbolTable.hpp"
 #include "token.hpp"
-
-
 
 bool EleFunction::buildEleFuncSymbolTable(SymbolTable *symTable) {
   AstTerm *ident = dynamic_cast<AstTerm *>(this->leaves[1]);
@@ -16,7 +14,8 @@ bool EleFunction::buildEleFuncSymbolTable(SymbolTable *symTable) {
 
   s.str = t.getString();
 
-  if (symTable->findSymbol(s)) return false;
+  if (symTable->findSymbol(s))
+    return false;
 
   std::cout << "Function " << t.getString() << std::endl;
 

@@ -5,11 +5,12 @@
 #include "AstElement.hpp"
 
 class EleExpr : public AstElement {
- private:
+private:
   bool compile(SymbolTable *s);
- public:
+
+public:
   EleExpr() : AstElement(AstExpr) {}
   virtual ~EleExpr() {}
 };
 
-#endif  // SRC_PARSER_CUSTOMELEMENTS_ELEEXPR_HPP_
+#endif // SRC_PARSER_CUSTOMELEMENTS_ELEEXPR_HPP_

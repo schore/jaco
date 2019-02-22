@@ -2,30 +2,30 @@
 #ifndef SRC_INCLUDE_ASTPARSER_HPP_
 #define SRC_INCLUDE_ASTPARSER_HPP_
 
-#include <vector>
-#include <token.hpp>
 #include <AstElement.hpp>
+#include <token.hpp>
+#include <vector>
 
 class Token;
 class AstParser {
   class Element {
-   public:
-      ElementType type;
-      int parent;
-      bool used;
-      AstElementTree *el;
+  public:
+    ElementType type;
+    int parent;
+    bool used;
+    AstElementTree *el;
   };
 
   class InputStream {
-   public:
-      Token *tok;
-      int parent;
-      int pos;
+  public:
+    Token *tok;
+    int parent;
+    int pos;
   };
 
- private:
-  std::vector <Element> node;
-  std::vector <InputStream> inpStream;
+private:
+  std::vector<Element> node;
+  std::vector<InputStream> inpStream;
 
   int index = -1;
   int parentIndex = 0;
@@ -39,8 +39,6 @@ class AstParser {
   bool isAddToken(int parent);
   bool isMultToken(int parent);
   bool isAssign(int parent);
-
-
 
   bool expr(int parent, bool newElement = true);
   bool andExpr(int parent, bool newElement = true);
@@ -64,12 +62,12 @@ class AstParser {
   void cleanTree();
   void buildTree();
 
- public:
-  bool parseToken(std::vector <Token*> inStream);
+public:
+  bool parseToken(std::vector<Token *> inStream);
 
   AstElementTree *getRootNode();
 
   AstParser();
 };
 
-#endif  // SRC_INCLUDE_ASTPARSER_HPP_
+#endif // SRC_INCLUDE_ASTPARSER_HPP_

@@ -5,12 +5,12 @@
 #include "AstElement.hpp"
 
 class EleFunction : public AstElement {
- private:
+private:
   bool buildEleFuncSymbolTable(SymbolTable *s);
 
- public:
+public:
   EleFunction() : AstElement(AstFunc) {}
   virtual ~EleFunction() {}
 };
 
-#endif  // SRC_PARSER_CUSTOMELEMENTS_ELEFUNCTION_HPP_
+#endif // SRC_PARSER_CUSTOMELEMENTS_ELEFUNCTION_HPP_

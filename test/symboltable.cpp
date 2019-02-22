@@ -1,6 +1,6 @@
-#include <gtest/gtest.h>
-#include <gmock/gmock.h>
 #include <fstream>
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 #include <iostream>
 
 #include "symbolTable.hpp"
@@ -8,12 +8,10 @@
 using ::testing::Return;
 using namespace std;
 
-
-
 TEST(SymbolTable, main) {
 
   SymbolTable dut;
-  Symbol a,b,c,d,e,f;
+  Symbol a, b, c, d, e, f;
 
   a.str = "a";
   b.str = "b";
@@ -65,13 +63,12 @@ TEST(SymbolTable, main) {
   EXPECT_FALSE(dut.checkScope(e));
   EXPECT_TRUE(dut.checkScope(f));
 
-  EXPECT_EQ(dut.findSymbol(a)->i , 1);
+  EXPECT_EQ(dut.findSymbol(a)->i, 1);
   a.i = 10;
   dut.pushSymbol(a);
-  EXPECT_EQ(dut.findSymbol(a)->i , 10);
+  EXPECT_EQ(dut.findSymbol(a)->i, 10);
   dut.popSymbol(a);
-  EXPECT_EQ(dut.findSymbol(a)->i , 1);
-
+  EXPECT_EQ(dut.findSymbol(a)->i, 1);
 
   dut.exitScope();
 
@@ -82,5 +79,5 @@ TEST(SymbolTable, main) {
   EXPECT_TRUE(dut.checkScope(e));
   EXPECT_FALSE(dut.checkScope(f));
 
-  EXPECT_EQ(dut.findSymbol(a)->i , 1);
+  EXPECT_EQ(dut.findSymbol(a)->i, 1);
 }

@@ -3,13 +3,12 @@
 
 #include <debug_helper.h>
 
-#include "token.hpp"
-#include "symbolTable.hpp"
 #include "AstTerm.hpp"
-
+#include "symbolTable.hpp"
+#include "token.hpp"
 
 bool EleDeclaration::preEleCompile(SymbolTable *s) {
-  const Token *iden = dynamic_cast<AstTerm*>(this->leaves[1])->getPTok();
+  const Token *iden = dynamic_cast<AstTerm *>(this->leaves[1])->getPTok();
   Symbol sym;
   sym.str = iden->getString();
 

@@ -1,51 +1,48 @@
-#include <gtest/gtest.h>
-#include <gmock/gmock.h>
 #include <fstream>
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 #include <iostream>
 
-#include "tokenizer.hpp"
-#include "AstParser.hpp"
-#include "AstElementTree.hpp"
 #include "AstElement.hpp"
+#include "AstElementTree.hpp"
+#include "AstParser.hpp"
 #include "AstTerm.hpp"
-#include "utility.hpp"
 #include "symbolTable.hpp"
+#include "tokenizer.hpp"
+#include "utility.hpp"
 
 using ::testing::Return;
 using namespace std;
 
-
-
 TEST(Parser, Testfunction) {
   Tokenizer tok;
   AstParser pars;
-  int treeDepth = 0;
   vector<Token *> allToken;
   ifstream myFile;
 
   AstTestStruct aRes[] = {
-    {0, AstRoot             , true },
-    {1, AstFunc             , true },
-    {2, Token_KeywordFunc   , false},
-    {2, Token_Identifier    , false},
-    {2, Token_BraceLeft     , false},
-    {2, Token_BraceRight    , false},
-    {2, AstStmt             , true },
-    {3, Token_SwiftLeft     , false},
-    {3, AstStmtList         , true },
-    {4, AstStmt             , true },
-    {5, AstStmtAssignment   , true },
-    {6, Token_Identifier    , false},
-    {6, Token_OperatorAssign, false},
-    {6, AstExpr             , true },
-    {6, Token_Semilicon     , false},
-    {4, AstStmt             , true },
-    {5, AstStmtDeclaration  , true },
-    {6, Token_KeywordVar    , false},
-    {6, Token_Identifier    , false},
-    {6, Token_OperatorAssign, false},
-    {6, AstExpr             , true },
-    {6, Token_Semilicon     , false},
+      {0, AstRoot, true},
+      {1, AstFunc, true},
+      {2, Token_KeywordFunc, false},
+      {2, Token_Identifier, false},
+      {2, Token_BraceLeft, false},
+      {2, Token_BraceRight, false},
+      {2, AstStmt, true},
+      {3, Token_SwiftLeft, false},
+      {3, AstStmtList, true},
+      {4, AstStmt, true},
+      {5, AstStmtAssignment, true},
+      {6, Token_Identifier, false},
+      {6, Token_OperatorAssign, false},
+      {6, AstExpr, true},
+      {6, Token_Semilicon, false},
+      {4, AstStmt, true},
+      {5, AstStmtDeclaration, true},
+      {6, Token_KeywordVar, false},
+      {6, Token_Identifier, false},
+      {6, Token_OperatorAssign, false},
+      {6, AstExpr, true},
+      {6, Token_Semilicon, false},
   };
 
   myFile.open("../test/code/testFunction.code");
@@ -58,7 +55,7 @@ TEST(Parser, Testfunction) {
   AstElementTree *t = pars.getRootNode();
   t->print();
 
-  vector <AstTestStruct> vec;
+  vector<AstTestStruct> vec;
 
   t->createTestStruct(&vec);
   int j = 0;
@@ -79,10 +76,8 @@ TEST(SymbolTable, Testfunction) {
   Tokenizer tok;
   AstParser pars;
   SymbolTable s;
-  int treeDepth = 0;
   vector<Token *> allToken;
   ifstream myFile;
-
 
   myFile.open("../test/code/testFunction.code");
 

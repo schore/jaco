@@ -6,7 +6,7 @@
 
 class SymbolTable;
 class EleStmtList : public AstElement {
- public:
+public:
   bool preEleCompile(SymbolTable *s);
   bool postEleCompile(SymbolTable *s);
 
@@ -14,4 +14,4 @@ class EleStmtList : public AstElement {
   virtual ~EleStmtList() {}
 };
 
-#endif  // SRC_PARSER_CUSTOMELEMENTS_ELESTMTLIST_HPP_
+#endif // SRC_PARSER_CUSTOMELEMENTS_ELESTMTLIST_HPP_

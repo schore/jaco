@@ -2,49 +2,46 @@
 #include "AstElement.hpp"
 
 #include <iostream>
-#include <vector>
 #include <string>
+#include <vector>
 
 #include "AstElementTree.hpp"
-
 
 bool AstElement::addLeave(AstElementTree *leave) {
   this->leaves.push_back(leave);
   return true;
 }
 
-
 void AstElement::print(int ident) {
   const std::vector<std::string> str = {
 #define X(type) #type,
-    AST_ELEMENT
+      AST_ELEMENT
 #undef X
   };
 
-
-  for ( auto i = 0; i < ident; i++ ) std::cout << "|  ";
+  for (auto i = 0; i < ident; i++)
+    std::cout << "|  ";
   std::cout << str[this->type] << std::endl;
 
   ident++;
 
-  for ( AstElementTree *e : this->leaves ) {
+  for (AstElementTree *e : this->leaves) {
     e->print(ident);
   }
 }
 
-
 void AstElement::createTestStruct(std::vector<AstTestStruct> *output,
                                   int ident) {
   AstTestStruct t = {
-    ident,
-    this->type,
-    true,
+      ident,
+      this->type,
+      true,
   };
 
   output->push_back(t);
 
-  for ( AstElementTree *e : this->leaves ) {
-    e->createTestStruct(output, ident+1);
+  for (AstElementTree *e : this->leaves) {
+    e->createTestStruct(output, ident + 1);
   }
 }
 
@@ -53,7 +50,7 @@ bool AstElement::buildFuncSymbolTable(SymbolTable *s) {
 
   ret = this->buildEleFuncSymbolTable(s);
 
-  for ( AstElementTree *l : this->leaves ) {
+  for (AstElementTree *l : this->leaves) {
     ret &= l->buildFuncSymbolTable(s);
   }
 
@@ -65,10 +62,8 @@ bool AstElement::compile(SymbolTable *s) {
   ret = this->preEleCompile(s);
   ret &= this->eleCompile(s);
   ret &= this->postEleCompile(s);
-  for ( AstElementTree *l : this->leaves ) {
+  for (AstElementTree *l : this->leaves) {
     ret &= l->compile(s);
   }
   return ret;
 }
-
-

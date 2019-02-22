@@ -24,9 +24,10 @@ class Tokenizer {
   Token *createSpecialChar(std::ifstream *pFile);
 
   Token *parse(std::ifstream *pFile);
- public:
+
+public:
   Tokenizer() {}
   std::vector<Token *> getAllTokens(std::ifstream *pFile);
 };
 
-#endif  // SRC_INCLUDE_TOKENIZER_HPP_
+#endif // SRC_INCLUDE_TOKENIZER_HPP_

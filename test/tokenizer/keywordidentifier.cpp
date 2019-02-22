@@ -1,15 +1,14 @@
-#include <gtest/gtest.h>
-#include <gmock/gmock.h>
 #include <fstream>
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 #include <iostream>
 
-#include "tokenizer.hpp"
 #include "token.hpp"
+#include "tokenizer.hpp"
 #include "utility.hpp"
 
 using ::testing::Return;
 using namespace std;
-
 
 TEST(Keyword, Parse) {
   Tokenizer tok;
@@ -18,15 +17,9 @@ TEST(Keyword, Parse) {
   int i = 0;
 
   eTokenType expectedType[] = {
-    Token_KeywordIf,
-    Token_KeywordElse,
-    Token_KeywordWhile,
-    Token_KeywordFor,
-    Token_KeywordIf,
-    Token_KeywordElse,
-    Token_KeywordWhile,
-    Token_KeywordFor,
-   };
+      Token_KeywordIf, Token_KeywordElse, Token_KeywordWhile, Token_KeywordFor,
+      Token_KeywordIf, Token_KeywordElse, Token_KeywordWhile, Token_KeywordFor,
+  };
 
   myFile.open("../test/code/keywordtest.code");
 
@@ -34,12 +27,11 @@ TEST(Keyword, Parse) {
 
   for (Token *n : allToken) {
 
-    if (n->getType() >= Token_KeywordIf
-        && n->getType() <= Token_KeywordElse) {
-      EXPECT_EQ( n->getType(), expectedType[i]);
+    if (n->getType() >= Token_KeywordIf && n->getType() <= Token_KeywordElse) {
+      EXPECT_EQ(n->getType(), expectedType[i]);
       i++;
     }
   }
 
-  EXPECT_EQ( i, NELEMENTS(expectedType));
+  EXPECT_EQ(i, NELEMENTS(expectedType));
 }

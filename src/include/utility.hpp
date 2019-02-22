@@ -2,6 +2,6 @@
 #ifndef SRC_INCLUDE_UTILITY_HPP_
 #define SRC_INCLUDE_UTILITY_HPP_
 
-#define NELEMENTS(_ARRAY) (sizeof(_ARRAY)/sizeof((_ARRAY)[0]))
+#define NELEMENTS(_ARRAY) (sizeof(_ARRAY) / sizeof((_ARRAY)[0]))
 
-#endif  // SRC_INCLUDE_UTILITY_HPP_
+#endif // SRC_INCLUDE_UTILITY_HPP_

@@ -2,27 +2,28 @@
 #ifndef SRC_INCLUDE_SYMBOLTABLE_HPP_
 #define SRC_INCLUDE_SYMBOLTABLE_HPP_
 
+#include <set>
 #include <string>
 #include <vector>
-#include <set>
 
 class Symbol {
- public:
+public:
   std::string str;
   int i;
 };
 
-
-inline bool operator< (const Symbol& lhs, const Symbol& rhs)
-  { return lhs.str < rhs.str; }
-inline bool operator==(const Symbol& lhs, const Symbol& rhs)
-  { return lhs.str == rhs.str; }
+inline bool operator<(const Symbol &lhs, const Symbol &rhs) {
+  return lhs.str < rhs.str;
+}
+inline bool operator==(const Symbol &lhs, const Symbol &rhs) {
+  return lhs.str == rhs.str;
+}
 
 class SymbolTable {
- private:
+private:
   std::vector<std::set<Symbol>> symbolSet;
 
- public:
+public:
   SymbolTable();
 
   void pushSymbol(const Symbol sym);
@@ -35,4 +36,4 @@ class SymbolTable {
   bool exitScope();
 };
 
-#endif  // SRC_INCLUDE_SYMBOLTABLE_HPP_
+#endif // SRC_INCLUDE_SYMBOLTABLE_HPP_

@@ -3,10 +3,6 @@
 
 #include "symbolTable.hpp"
 
-bool EleStmtList::preEleCompile(SymbolTable *s) {
-  return s->enterScope();
-}
+bool EleStmtList::preEleCompile(SymbolTable *s) { return s->enterScope(); }
 
-bool EleStmtList::postEleCompile(SymbolTable *s) {
-  return s->exitScope();
-}
+bool EleStmtList::postEleCompile(SymbolTable *s) { return s->exitScope(); }

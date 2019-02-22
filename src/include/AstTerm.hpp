@@ -10,20 +10,17 @@
 
 class Token;
 class AstTerm : public AstElementTree {
- private:
-  gsl::owner<Token*> pTok;
+private:
+  gsl::owner<Token *> pTok;
 
- public:
+public:
   const Token *getPTok() { return this->pTok; }
-  bool addLeave(AstElementTree *t) {return false;}
-
+  bool addLeave(AstElementTree *t) { return false; }
 
   void print(int ident = 0);
-  void createTestStruct(std::vector <AstTestStruct> *testOutput,
-                                int ident = 0);
+  void createTestStruct(std::vector<AstTestStruct> *testOutput, int ident = 0);
 
-
-  explicit AstTerm(gsl::owner<Token*> pTok) { this->pTok = pTok; }
+  explicit AstTerm(gsl::owner<Token *> pTok) { this->pTok = pTok; }
 };
 
-#endif  // SRC_INCLUDE_ASTTERM_HPP_
+#endif // SRC_INCLUDE_ASTTERM_HPP_
