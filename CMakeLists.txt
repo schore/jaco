@@ -1,12 +1,7 @@
-cmake_minimum_required (VERSION 2.6)
-project(compiler)
+cmake_minimum_required (VERSION 3.8)
+project(compiler VERSION 0.0.1)
 #Version Number
-set (Compiler_Version_Major 0)
-set (Compiler_Version_Minor 0)
 set( CMAKE_EXPORT_COMPILE_COMMANDS ON )
-
-set( CMAKE_C_COMPILER "/usr/bin/clang")
-set( CMAKE_CXX_COMPILER "/usr/bin/clang++")
 
 
 #Global Options
@@ -14,28 +9,42 @@ set( CMAKE_CXX_COMPILER "/usr/bin/clang++")
 option (COMP_DEBUG "Debug Mode on" ON)
 option (BUILD_TEST "Build Testing" ON)
 
-set (CMAKE_CXX_FLAGS "-Wall")
+# set (CMAKE_CXX_FLAGS "-Wall -fsanitize=address")
 
-#generate header file
-configure_file (
-  "${PROJECT_SOURCE_DIR}/src/include/global_config.h.in"
-  "${PROJECT_BINARY_DIR}/include/global_config.h"
-  )
 
-if (COMP_DEBUG)
-  set(CMAKE_BUILD_TYPE Debug)
-endif()
 
-include_directories("${PROJECT_SOURCE_DIR}/src/include")
-include_directories("${PROJECT_SOURCE_DIR}/external/GSL/include")
-add_subdirectory(src)
-
-add_executable(compiler ./src/main.cpp)
+add_executable(compiler src/main.cpp)
 target_link_libraries(compiler compilerLib)
 
-add_library(compilerLib ${SOURCE})
+
+file(GLOB_RECURSE SRCS src/*/*.cpp)
+file(GLOB_RECURSE HEADER src/include/*)
+
+add_library(compilerLib SHARED ${SRCS})
+target_include_directories(compilerLib
+  PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/include>
+  PUBLIC $<INSTALL_INTERFACE:include/mylib>)
+set_target_properties(compilerLib PROPERTIES PUBLIC_HEADER "${HEADER}")
+
 #test framework
 #include(CTest)
+
+
+install(TARGETS compilerLib
+        EXPORT compiler
+        # LIBRARY DESTINATION lib
+        # ARCHIVE DESTINATION lib
+        # RUNTIME DESTINATION bin
+        PUBLIC_HEADER DESTINATION include/foo
+        )
+
+
+
+install(EXPORT compiler
+        # FILE MyLibTargets.cmake
+        # NAMESPACE MyLib::
+        DESTINATION lib/cmake/MyLib
+         )
 
 
 # does the application run
@@ -44,7 +53,6 @@ find_package(GTest REQUIRED)
 enable_testing()
 include(CTest)
 set(BUILD_TESTING On)
-include_directories(${GTEST_INCLUDE_DIRS})
 
 add_custom_target(testcode)
 
@@ -52,10 +60,9 @@ add_custom_target(testcode)
 macro(Mytest testname src)
   if (BUILD_TEST)
     add_executable(${testname} EXCLUDE_FROM_ALL "${src}")
-    target_link_libraries(${testname} pthread)
-    target_link_libraries(${testname} ${GTEST_BOTH_LIBRARIES})
+    target_link_libraries(${testname} gtest gtest_main)
     target_link_libraries(${testname} compilerLib)
-    add_dependencies(testcode  ${testname}) 
+    add_dependencies(testcode  ${testname})
     add_custom_command(TARGET ${testname}
       POST_BUILD
       COMMAND ${testname})
@@ -95,15 +102,15 @@ file(GLOB_RECURSE ana2 "src/*.cpp" )
 foreach(SRCFILE ${ana2})
   add_custom_command(
     TARGET staticAnalysies
-    COMMAND  clang-tidy  
+    COMMAND  clang-tidy
     ${SRCFILE}
     -header-filter=.*,-${CMAKE_CURRENT_SOURCE_DIR}/external/GSL/include/*
-    -warnings-as-errors=* 
+    -warnings-as-errors=*
     -checks=-*,cppcoreguidelines*,clang-analyzer*
-    -- 
+    --
     -I${CMAKE_CURRENT_SOURCE_DIR}/src/include/
     -I${CMAKE_CURRENT_SOURCE_DIR}/external/GSL/include/
-    -std=c++14    
+    -std=c++14
     COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/external/CppCoreGuidelines/scripts/python/cpplint.py
     ${SRCFILE}
 
@@ -111,7 +118,7 @@ foreach(SRCFILE ${ana2})
     --
     -I${CMAKE_CURRENT_SOURCE_DIR}/src/include/
     -I${CMAKE_CURRENT_SOURCE_DIR}/external/GSL/include/
-    -std=c++14    
+    -std=c++14
 
     COMMAND cppcheck ${SRCFILE}
   )
